@@ -15,6 +15,7 @@
             android:gravity="center"
             android:orientation="horizontal">
 
+            <!-- Might delete these textviews and add hints to the EditTexts in future -->
             <TextView
                 android:id="@+id/whatTextView"
                 android:layout_width="wrap_content"
@@ -37,6 +38,7 @@
             android:gravity="center"
             android:orientation="horizontal">
 
+            <!-- Might delete these textviews and add hints to the EditTexts in future -->
             <TextView
                 android:id="@+id/whereTextView"
                 android:layout_width="wrap_content"
