@@ -46,9 +46,10 @@ public class ShoppingActivity extends AppCompatActivity {
         addItemBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
                 //Checks if either field is empty, and creates a toast if they are.
                 if (isEmpty(whatEditText)) { pleaseAddItemToast(); return; }
-                if (isEmpty(whereEditText)) { pleaseAddLocationToast();return; }
+                if (isEmpty(whereEditText)) { pleaseAddLocationToast(); return; }
 
                 //If both fields are filled, creates an item and adds it to the database.
                 String what = whatEditText.getText().toString();
@@ -94,8 +95,8 @@ public class ShoppingActivity extends AppCompatActivity {
     }
 
     //Checks if an EditText field is empty. Returns True if empty, False if not.
-    private boolean isEmpty(EditText Text) {
-        return Text.getText().toString().trim().length() == 0;
+    private boolean isEmpty(EditText text) {
+        return text.getText().toString().trim().length() == 0;
     }
 }
 //END OF LINE//------------------------------------------------------------------------------------
