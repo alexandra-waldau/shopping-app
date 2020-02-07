@@ -12,7 +12,7 @@ import android.widget.Toast;
 
 import org.w3c.dom.Text;
 
-//VERSION 2.0// Week 2
+//VERSION 2.1// Week 2
 /*
 * @author John Henrik Muller
 */
@@ -48,8 +48,10 @@ public class ShoppingActivity extends AppCompatActivity {
             public void onClick(View view) {
 
                 //Checks if either field is empty, and creates a toast if they are.
-                if (isEmpty(whatEditText)) { pleaseAddItemToast(); return; }
-                if (isEmpty(whereEditText)) { pleaseAddLocationToast(); return; }
+                if (isEmpty(whatEditText)) {
+                    String request = "Please fill in an item."; Toast(request); return; }
+                if (isEmpty(whereEditText)) {
+                    String request = "Please fill in a location."; Toast(request); return; }
 
                 //If both fields are filled, creates an item and adds it to the database.
                 String what = whatEditText.getText().toString();
@@ -58,7 +60,8 @@ public class ShoppingActivity extends AppCompatActivity {
                 //Clears the fields and plays a toast.
                 whereEditText.getText().clear();
                 whatEditText.getText().clear();
-                addItemToast();
+                String congrats = "Item added! :)";
+                Toast(congrats);
             }
         });
 
@@ -68,7 +71,7 @@ public class ShoppingActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 itemsList.setBackgroundColor(Color.parseColor("#FFFFFF"));
-                String list = "Shopping List:"+itemsDB.listItems();
+                String list = "Shopping List:" + itemsDB.listItems();
                 itemsList.setText(list);
             }
         });
@@ -76,22 +79,9 @@ public class ShoppingActivity extends AppCompatActivity {
 
     //HELPER METHODS//-----------------------------------------------------------------------------
 
-    //Presents a toast if an item is correctly added.
-    public void addItemToast(){
-        String addedItem = "Item added!";
-        Toast.makeText(this, addedItem, Toast.LENGTH_SHORT).show();
-    }
-
-    //Presents a toast asking the user to fill in the item field.
-    public void pleaseAddItemToast(){
-        String addedItem = "Please fill in an item.";
-        Toast.makeText(this, addedItem, Toast.LENGTH_SHORT).show();
-    }
-
-    //Presents a toast asking the user to fill in the location field.
-    public void pleaseAddLocationToast(){
-        String addedItem = "Please fill in a location.";
-        Toast.makeText(this, addedItem, Toast.LENGTH_SHORT).show();
+    //Presents a toast using the given string.
+    public void Toast(String input){
+        Toast.makeText(this, input, Toast.LENGTH_SHORT).show();
     }
 
     //Checks if an EditText field is empty. Returns True if empty, False if not.
