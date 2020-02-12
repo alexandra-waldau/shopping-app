@@ -2,9 +2,12 @@ package dk.itu.jhmu.shopping;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Activity;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.renderscript.ScriptGroup;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -12,7 +15,8 @@ import android.widget.Toast;
 
 import org.w3c.dom.Text;
 
-//VERSION 2.1// Week 2
+//VERSION 2.2// Week 3 //
+//VERSION NOTES: Added strings to the XML for our toasts. Experimented with a hide keyboard method.
 /*
 * @author John Henrik Muller
 */
@@ -49,9 +53,11 @@ public class ShoppingActivity extends AppCompatActivity {
 
                 //Checks if either field is empty, and creates a toast if they are.
                 if (isEmpty(whatEditText)) {
-                    String request = "Please fill in an item."; Toast(request); return; }
+                    String request = getString(R.string.pleaseAddItemToast);
+                    makeToast(request); return; }
                 if (isEmpty(whereEditText)) {
-                    String request = "Please fill in a location."; Toast(request); return; }
+                    String request = getString(R.string.pleaseAddLocationToast);
+                    makeToast(request); return; }
 
                 //If both fields are filled, creates an item and adds it to the database.
                 String what = whatEditText.getText().toString();
@@ -60,8 +66,8 @@ public class ShoppingActivity extends AppCompatActivity {
                 //Clears the fields and plays a toast.
                 whereEditText.getText().clear();
                 whatEditText.getText().clear();
-                String congrats = "Item added! :)";
-                Toast(congrats);
+                String congrats = getString(R.string.addedItemToast);;
+                makeToast(congrats);
             }
         });
 
@@ -80,7 +86,7 @@ public class ShoppingActivity extends AppCompatActivity {
     //HELPER METHODS//-----------------------------------------------------------------------------
 
     //Presents a toast using the given string.
-    public void Toast(String input){
+    public void makeToast(String input){
         Toast.makeText(this, input, Toast.LENGTH_SHORT).show();
     }
 
@@ -88,6 +94,12 @@ public class ShoppingActivity extends AppCompatActivity {
     private boolean isEmpty(EditText text) {
         return text.getText().toString().trim().length() == 0;
     }
+
+    //public static void hideKeyboardFrom(Activity activity) {
+     //   InputMethodManager imm =
+        //(ScriptGroup.Input) activity.getSystemService(Activity.INPUT_METHOD_SERVICE);
+        //imm.hideSoftInputFromWindow(activity.getCurrentFocus().getWindowToken(),0);
+    //}
 }
 //END OF LINE//------------------------------------------------------------------------------------
 

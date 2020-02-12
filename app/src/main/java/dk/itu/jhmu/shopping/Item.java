@@ -35,7 +35,7 @@ public class Item {
     }
 
     public String oneLine(String pre, String post) {
-        return pre+mWhat + post + mWhere;
+        return pre + mWhat + post + mWhere;
     }
 }
 //END OF LINE//------------------------------------------------------------------------------------

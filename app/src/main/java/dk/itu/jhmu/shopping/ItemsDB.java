@@ -4,24 +4,24 @@ import java.util.ArrayList;
 import java.util.List;
 
 //CLASS HEADER//-----------------------------------------------------------------------------------
-public class ItemsDB {
+class ItemsDB {
     //FIELDS//-------------------------------------------------------------------------------------
     private List<Item> ItemsDB;
 
     //CONSTRUCTOR//--------------------------------------------------------------------------------
-    public ItemsDB() {
+    ItemsDB() {
         ItemsDB= new ArrayList<>();
     }
 
     //METHODS//------------------------------------------------------------------------------------
 
     //Takes two Strings as an input to create and add a new Item to the Database.
-    public void addItem(String name, String where) {
-        ItemsDB.add(new Item(name,where));
+    void addItem(String what, String where) {
+        ItemsDB.add(new Item(what,where));
     }
 
     //Lists all items currently in the Database.
-    public String listItems() {
+    String listItems() {
         String r= "";
         for (int i= 0; i<ItemsDB.size(); i++) {
             r += "\n Buy " + ItemsDB.get(i).toString();
@@ -31,7 +31,7 @@ public class ItemsDB {
 
     //Fills the database with a bunch of items.
     @Deprecated
-    public void fillItemsDB() {
+    void fillItemsDB() {
         ItemsDB.add(new Item("coffee", "Irma"));
         ItemsDB.add(new Item("carrots", "Netto"));
         ItemsDB.add(new Item("milk", "Netto"));
