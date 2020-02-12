@@ -2,21 +2,15 @@ package dk.itu.jhmu.shopping;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.app.Activity;
-import android.graphics.Color;
+import android.content.Intent;
 import android.os.Bundle;
-import android.renderscript.ScriptGroup;
 import android.view.View;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
-import org.w3c.dom.Text;
-
-//VERSION 2.2// Week 3 //
-//VERSION NOTES: Added strings to the XML for our toasts. Experimented with a hide keyboard method.
+//VERSION 3.1// Week 3 //
+//VERSION NOTES: Singletons! New Activity! Remove items! And more!
 /*
 * @author John Henrik Muller
 */
@@ -28,7 +22,6 @@ public class ShoppingActivity extends AppCompatActivity {
     private Button addItemBtn;
     private EditText whereEditText;
     private EditText whatEditText;
-    private TextView itemsList;
     // Model: Database of items //
     private ItemsDB itemsDB;
 
@@ -38,12 +31,12 @@ public class ShoppingActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.shopping_activity);
 
-        //Creates the item database.
-        itemsDB = new ItemsDB();
+        //Creates the item database, uses the Singleton method rather than the constructor.
+        itemsDB = ItemsDB.get(this);
+
         //Attaching a bunch of variables to elements in our XML.
         whereEditText = (EditText) findViewById(R.id.whereEditText);
         whatEditText = (EditText) findViewById(R.id.whatEditText);
-        itemsList = (TextView) findViewById(R.id.itemsListTextView);
 
         //When clicked, the addItemButton will add an item to the ItemsDB.
         addItemBtn = (Button) findViewById(R.id.addItemBtn);
@@ -53,32 +46,30 @@ public class ShoppingActivity extends AppCompatActivity {
 
                 //Checks if either field is empty, and creates a toast if they are.
                 if (isEmpty(whatEditText)) {
-                    String request = getString(R.string.pleaseAddItemToast);
-                    makeToast(request); return; }
+                    makeToast(getString(R.string.pleaseAddItemToast)); return; }
                 if (isEmpty(whereEditText)) {
-                    String request = getString(R.string.pleaseAddLocationToast);
-                    makeToast(request); return; }
+                    makeToast(getString(R.string.pleaseAddLocationToast)); return; }
 
                 //If both fields are filled, creates an item and adds it to the database.
                 String what = whatEditText.getText().toString();
                 String where = whereEditText.getText().toString();
                 itemsDB.addItem(what,where);
+
                 //Clears the fields and plays a toast.
                 whereEditText.getText().clear();
                 whatEditText.getText().clear();
-                String congrats = getString(R.string.addedItemToast);;
-                makeToast(congrats);
+                makeToast(getString(R.string.addedItemToast));
             }
         });
 
-        //When clicked, the listItemsButton will list the items using the ItemsDB.
+        //When clicked, the listItemsButton will open the ListActivity.
         listItemsBtn = (Button) findViewById(R.id.listItemsBtn);
         listItemsBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                itemsList.setBackgroundColor(Color.parseColor("#FFFFFF"));
-                String list = "Shopping List:" + itemsDB.listItems();
-                itemsList.setText(list);
+                //Start ListActivity
+                Intent intent = new Intent(ShoppingActivity.this, ListActivity.class);
+                startActivity(intent);
             }
         });
     }
@@ -95,6 +86,7 @@ public class ShoppingActivity extends AppCompatActivity {
         return text.getText().toString().trim().length() == 0;
     }
 
+    //Some potential code to hide the keyboard? Needs further investigation.
     //public static void hideKeyboardFrom(Activity activity) {
      //   InputMethodManager imm =
         //(ScriptGroup.Input) activity.getSystemService(Activity.INPUT_METHOD_SERVICE);

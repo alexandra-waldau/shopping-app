@@ -18,7 +18,8 @@
             android:layout_width="200dp"
             android:layout_height="wrap_content"
             android:inputType="textAutoCorrect"
-            android:hint="@string/whatTextView"/>
+            android:hint="@string/whatTextView"
+            android:imeOptions="actionDone"/>
 
     </LinearLayout>
 
@@ -34,16 +35,10 @@
             android:layout_width="200dp"
             android:layout_height="wrap_content"
             android:inputType="textAutoCorrect"
-            android:hint="@string/whereTextView"/>
+            android:hint="@string/whereTextView"
+            android:imeOptions="actionDone"/>
 
     </LinearLayout>
-
-    <!-- TextView that shows the ItemList-->
-    <TextView
-        android:id="@+id/itemsListTextView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="24dp" />
 
     <!-- Button to Add a new Item -->
     <Button
@@ -61,6 +56,6 @@
         android:layout_height="wrap_content"
         android:text="@string/listItemsBtn_name"
         android:textAllCaps="false"
-        android:backgroundTint="@android:color/holo_green_light" />
+        android:backgroundTint="@android:color/holo_blue_light" />
 
 </LinearLayout>

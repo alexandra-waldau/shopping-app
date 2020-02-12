@@ -5,29 +5,23 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:gravity="center">
+        android:gravity="center"
+        android:orientation="vertical" >
 
         <!-- TextView and EditText for the 'What' field-->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:orientation="horizontal">
-
-            <!-- Might delete these textviews and add hints to the EditTexts in future -->
-            <TextView
-                android:id="@+id/whatTextView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:paddingRight="5dp"
-                android:text="@string/whatTextView"
-                android:textSize="18sp" />
+            android:orientation="horizontal" >
 
             <EditText
                 android:id="@+id/whatEditText"
                 android:layout_width="200dp"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:inputType="textAutoCorrect"
+                android:hint="@string/whatTextView"
+                android:imeOptions="actionDone"/>
 
         </LinearLayout>
 
@@ -36,47 +30,36 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:orientation="horizontal">
-
-            <!-- Might delete these textviews and add hints to the EditTexts in future -->
-            <TextView
-                android:id="@+id/whereTextView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:paddingRight="5dp"
-                android:text="@string/whereTextView"
-                android:textSize="18sp" />
+            android:orientation="horizontal" >
 
             <EditText
                 android:id="@+id/whereEditText"
                 android:layout_width="200dp"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:inputType="textAutoCorrect"
+                android:hint="@string/whereTextView"
+                android:imeOptions="actionDone"/>
 
         </LinearLayout>
 
-        <!-- TextView that shows the ItemList-->
-
-        <!-- Button to List all Items -->
-        <TextView
-            android:id="@+id/itemsListTextView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="24dp" />
-
         <!-- Button to Add a new Item -->
-        <Button
-            android:id="@+id/listItemsBtn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:backgroundTint="@android:color/holo_green_light"
-            android:text="@string/listItemsBtn_name" />
-
         <Button
             android:id="@+id/addItemBtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:backgroundTint="@android:color/holo_green_light"
-            android:text="@string/addItemBtn_name" />
+            android:text="@string/addItemBtn_name"
+            android:textAllCaps="false"
+            android:backgroundTint="@android:color/holo_green_light" />
+
+        <!-- Button to List all Items -->
+        <Button
+            android:id="@+id/listItemsBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/listItemsBtn_name"
+            android:textAllCaps="false"
+            android:backgroundTint="@android:color/holo_blue_light" />
+
     </LinearLayout>
 
 </FrameLayout>

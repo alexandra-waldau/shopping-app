@@ -3,12 +3,15 @@
 
     <string name="listItemsBtn_name">List All Items</string>
     <string name="addItemBtn_name">Add Item</string>
+    <string name="deleteItemBtn_name">Remove Item</string>
     <string name="searchBtn_name">Search</string>
 
     <string name="whatTextView">What Item?</string>
     <string name="whereTextView">Where?</string>
 
     <string name="addedItemToast">Item Added! :)</string>
+    <string name="removedItemToast">Item Removed!</string>
+    <string name="noItemsToast">No More Items!</string>
     <string name="pleaseAddItemToast">Please fill in an item</string>
     <string name="pleaseAddLocationToast">Please fill in a location</string>
 </resources>
