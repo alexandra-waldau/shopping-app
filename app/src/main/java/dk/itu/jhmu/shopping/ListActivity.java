@@ -16,6 +16,7 @@ public class ListActivity extends AppCompatActivity {
     private TextView itemsList;
     private ItemsDB itemsDB;
     private Button removeItemBtn;
+    private Button removeAllItemsBtn;
 
     //MAIN METHOD//--------------------------------------------------------------------------------
     @Override
@@ -28,11 +29,11 @@ public class ListActivity extends AppCompatActivity {
 
         //Setting up our other XML elements.
         itemsList = (TextView) findViewById(R.id.itemsListTextView);
-        removeItemBtn = (Button) findViewById(R.id.deleteItemBtn);
         updateList();
 
-        //Clicking the delete item button will remove items in order of most recent to least recent.
+        //Clicking the remove item button will remove items in order of most recent to least recent.
         //If there are no items left, will play a special toast.
+        removeItemBtn = (Button) findViewById(R.id.removeItemBtn);
         removeItemBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -45,6 +46,22 @@ public class ListActivity extends AppCompatActivity {
                 }
             }
         });
+
+        //Clicking this button will remove all items on the list.
+        removeAllItemsBtn = (Button) findViewById(R.id.removeAllItemsBtn);
+        removeAllItemsBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v){
+                if (!itemsDB.isEmpty()) {
+                    itemsDB.removeAllItems();
+                    updateList();
+                    makeToast(getString(R.string.removedAllItemsToast));
+                } else {
+                    makeToast(getString(R.string.noItemsToast));
+                }
+            }
+        });
+
     }
 
     //HELPER METHODS//-----------------------------------------------------------------------------

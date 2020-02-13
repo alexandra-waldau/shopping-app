@@ -13,12 +13,21 @@
         android:layout_height="wrap_content"
         android:padding="24dp" />
 
-    <!-- Button to Delete a new Item -->
+    <!-- Button to remove the lowest Item on the list -->
     <Button
-        android:id="@+id/deleteItemBtn"
+        android:id="@+id/removeItemBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/deleteItemBtn_name"
+        android:text="@string/removeItemBtn_name"
+        android:textAllCaps="false"
+        android:backgroundTint="@android:color/holo_red_light" />
+
+    <!-- Button to remove all Items on the list. -->
+    <Button
+        android:id="@+id/removeAllItemsBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/removeAllItemsBtn_name"
         android:textAllCaps="false"
         android:backgroundTint="@android:color/holo_red_light" />
 

@@ -43,6 +43,14 @@ class ItemsDB {
         }
     }
 
+    //Removes all items in the database.
+    void removeAllItems() {
+        if (!ItemsDB.isEmpty()) {
+            ItemsDB.clear();
+            size = -1;
+        }
+    }
+
     //Returns true if there are no more items in the List.
     boolean isEmpty() {
         return size == -1;
@@ -51,7 +59,7 @@ class ItemsDB {
     //Lists all items currently in the Database.
     String listItems() {
         String r= "";
-        for (int i= 0; i<ItemsDB.size(); i++) {
+        for (int i = 0; i<ItemsDB.size(); i++) {
             r += "\n Buy " + ItemsDB.get(i).toString();
         }
         return r;
