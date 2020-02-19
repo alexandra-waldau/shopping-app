@@ -7,6 +7,7 @@ import org.junit.Test;
 public class ItemUnitTest {
 
     public static void main(String[] args) {
+        /*
 
         Item item;
 
@@ -41,3 +42,4 @@ public class ItemUnitTest {
     }
 
 }
+*/}}

@@ -32,7 +32,7 @@ public class ShoppingActivity extends AppCompatActivity {
         setContentView(R.layout.shopping_activity);
 
         //Creates the item database, uses the Singleton method rather than the constructor.
-        itemsDB = ItemsDB.get(this);
+        itemsDB = ItemsDB.get();
 
         //Attaching a bunch of variables to elements in our XML.
         whereEditText = (EditText) findViewById(R.id.whereEditText);

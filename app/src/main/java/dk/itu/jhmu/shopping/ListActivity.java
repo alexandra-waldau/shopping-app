@@ -25,7 +25,7 @@ public class ListActivity extends AppCompatActivity {
         setContentView(R.layout.list_activity);
 
         //Sets up the itemsDB using the singleton method rather than the usual constructor.
-        itemsDB = ItemsDB.get(this);
+        itemsDB = ItemsDB.get();
 
         //Setting up our other XML elements.
         itemsList = (TextView) findViewById(R.id.itemsListTextView);

@@ -13,7 +13,7 @@ class ItemsDB {
     private int size;
 
     //CONSTRUCTOR//--------------------------------------------------------------------------------
-    private ItemsDB(Context context) {
+    private ItemsDB() {
         ItemsDB= new ArrayList<>();
         //Sets an initial size of -1 for testing the List size.
         size = -1;
@@ -22,11 +22,16 @@ class ItemsDB {
     //METHODS//------------------------------------------------------------------------------------
 
     //Singleton method to return the current ItemsDB. Used when switching activities.
-    static ItemsDB get (Context context) {
+    static ItemsDB get () {
         if (sItemsDB == null) {
-            sItemsDB = new ItemsDB(context);
+            sItemsDB = new ItemsDB();
         }
         return sItemsDB;
+    }
+
+    //Returns the current amount of items in the database.
+    public int getSize(){
+        return size + 1;
     }
 
     //Takes two Strings as an input to create and add a new Item to the Database.
@@ -36,19 +41,16 @@ class ItemsDB {
     }
 
     //Removes the most recent item added to the database.
+    //Advise checking if the Database is empty first with isEmpty(), otherwise risk NullPointerException.
     void removeItem() {
-        if (ItemsDB.size() > 0) {
-            ItemsDB.remove(size);
-            size--;
-        }
+        ItemsDB.remove(size);
+        size--;
     }
 
     //Removes all items in the database.
     void removeAllItems() {
-        if (!ItemsDB.isEmpty()) {
-            ItemsDB.clear();
-            size = -1;
-        }
+        ItemsDB.clear();
+        size = -1;
     }
 
     //Returns true if there are no more items in the List.
