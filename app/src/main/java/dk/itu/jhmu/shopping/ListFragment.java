@@ -10,13 +10,6 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
-
-//VERSION 4.1// Week 4 //--------------------------------------------------------------------------
-//VERSION NOTES: Fragments! Unit Tests! Everything's broken! Help I'm unsupervised!
-/*
- * @author John Henrik Muller
- */
-//-------------------------------------------------------------------------------------------------
 import androidx.fragment.app.Fragment;
 
 //VERSION 4.2// Week 4 //--------------------------------------------------------------------------
