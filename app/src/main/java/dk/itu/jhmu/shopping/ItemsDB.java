@@ -3,8 +3,15 @@ package dk.itu.jhmu.shopping;
 import android.content.Context;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
+//VERSION 4.1// Week 4 //--------------------------------------------------------------------------
+//VERSION NOTES: Fragments! Unit Tests! Everything's broken! Help I'm unsupervised!
+/*
+ * @author John Henrik Muller
+ */
+//-------------------------------------------------------------------------------------------------
 //CLASS HEADER//-----------------------------------------------------------------------------------
 class ItemsDB {
     //FIELDS//-------------------------------------------------------------------------------------
@@ -14,7 +21,7 @@ class ItemsDB {
 
     //CONSTRUCTOR//--------------------------------------------------------------------------------
     private ItemsDB() {
-        ItemsDB= new ArrayList<>();
+        ItemsDB = new ArrayList<>();
         //Sets an initial size of -1 for testing the List size.
         size = -1;
     }
@@ -22,7 +29,7 @@ class ItemsDB {
     //METHODS//------------------------------------------------------------------------------------
 
     //Singleton method to return the current ItemsDB. Used when switching activities.
-    static ItemsDB get () {
+    static ItemsDB get() {
         if (sItemsDB == null) {
             sItemsDB = new ItemsDB();
         }
@@ -42,7 +49,20 @@ class ItemsDB {
 
     //Removes the most recent item added to the database.
     //Advise checking if the Database is empty first with isEmpty(), otherwise risk NullPointerException.
-    void removeItem() {
+    void removeItem(String itemName) {
+
+        Iterator<Item> iter = ItemsDB.iterator();
+
+        while (iter.hasNext()) {
+            if (iter.next().getWhat().equals(itemName)) {
+                iter.remove();
+            }
+        }
+    }
+
+    //Removes the most recent item added to the database.
+    //Advise checking if the Database is empty first with isEmpty(), otherwise risk NullPointerException.
+    void removeLastItem() {
         ItemsDB.remove(size);
         size--;
     }
@@ -67,7 +87,7 @@ class ItemsDB {
         return r;
     }
 
-    //Fills the database with a bunch of items.
+    //Fills the database with a bunch of items. No longer used.
     @Deprecated
     void fillItemsDB() {
         ItemsDB.add(new Item("coffee", "Irma"));

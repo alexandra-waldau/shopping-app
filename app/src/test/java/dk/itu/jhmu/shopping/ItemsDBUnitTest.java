@@ -1,17 +1,17 @@
 package dk.itu.jhmu.shopping;
 
-import org.junit.Assert;
-import org.junit.BeforeClass;
+import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.*;
 
 public class ItemsDBUnitTest {
     //Variable to hold our DB for testing.
     ItemsDB itemsDB;
 
     //Create our DB and fill it with items.
-    @BeforeClass
+    @Before
     public void setup () {
         itemsDB = ItemsDB.get();
         itemsDB.addItem("coffee", "Irma");
@@ -21,33 +21,52 @@ public class ItemsDBUnitTest {
         itemsDB.addItem("butter", "Irma");
     }
 
+    @After
+    public void cleanup() {
+        itemsDB.removeAllItems();
+    }
+
     //Should list all the items added.
     @Test
     public void ShouldListAllItemsCorrectly() {
-        assertEquals(itemsDB.listItems(),
-                "\n Buy coffee in: Irma"+
+        assertEquals("\n Buy coffee in: Irma"+
                         "\n Buy carrots in: Netto" +
                         "\n Buy milk in: Netto" +
                         "\n Buy bread in: bakery" +
-                        "\n Buy butter in: Irma");
+                        "\n Buy butter in: Irma",
+                        itemsDB.listItems());
     }
 
     @Test
-    public void ShouldReturnTheRightSize() {
-        assertEquals(itemsDB.getSize(),5);
+    public void BreadItemShouldBeDeleted () {
+        itemsDB.removeItem("bread");
+        assertEquals("\n Buy coffee in: Irma"+
+                        "\n Buy carrots in: Netto" +
+                        "\n Buy milk in: Netto" +
+                        "\n Buy butter in: Irma",
+                itemsDB.listItems());
     }
 
-    //First Test, looking to return the first item in the Array.
+    @Test
+    public void LastItemShouldBeDeleted () {
+        itemsDB.removeLastItem();
+        assertEquals("\n Buy coffee in: Irma"+
+                        "\n Buy carrots in: Netto" +
+                        "\n Buy milk in: Netto" +
+                        "\n Buy bread in: bakery",
+                itemsDB.listItems());
+    }
+
     @Test
     public void ShouldDeleteAllItems() {
         itemsDB.removeAllItems();
-        assertEquals(itemsDB.listItems(),
-                "");
+        assertEquals("", itemsDB.listItems());
     }
 
     @Test
     public void ShouldReturnTheEmptySize() {
-        assertEquals(itemsDB.getSize(),0);
+        itemsDB.removeAllItems();
+        assertEquals(0,itemsDB.getSize());
     }
 
 }
