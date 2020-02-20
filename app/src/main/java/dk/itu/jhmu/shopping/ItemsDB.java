@@ -1,17 +1,18 @@
 package dk.itu.jhmu.shopping;
 
-import android.content.Context;
+import android.content.Context; //Think we will need this eventually?
 
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-//VERSION 4.1// Week 4 //--------------------------------------------------------------------------
+//VERSION 4.2// Week 4 //--------------------------------------------------------------------------
 //VERSION NOTES: Fragments! Unit Tests! Everything's broken! Help I'm unsupervised!
 /*
  * @author John Henrik Muller
  */
 //-------------------------------------------------------------------------------------------------
+
 //CLASS HEADER//-----------------------------------------------------------------------------------
 class ItemsDB {
     //FIELDS//-------------------------------------------------------------------------------------
@@ -47,15 +48,15 @@ class ItemsDB {
         size++;
     }
 
-    //Removes the most recent item added to the database.
-    //Advise checking if the Database is empty first with isEmpty(), otherwise risk NullPointerException.
+    //Can search the list for a given item name and remove it. Would like to implement this functionality
+    //later.
     void removeItem(String itemName) {
 
-        Iterator<Item> iter = ItemsDB.iterator();
+        Iterator<Item> iterator = ItemsDB.iterator();
 
-        while (iter.hasNext()) {
-            if (iter.next().getWhat().equals(itemName)) {
-                iter.remove();
+        while (iterator.hasNext()) {
+            if (iterator.next().getWhat().equals(itemName)) {
+                iterator.remove();
             }
         }
     }

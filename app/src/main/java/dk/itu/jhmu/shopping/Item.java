@@ -1,11 +1,12 @@
 package dk.itu.jhmu.shopping;
 
-//VERSION 4.1// Week 4 //--------------------------------------------------------------------------
+//VERSION 4.2// Week 4 //--------------------------------------------------------------------------
 //VERSION NOTES: Fragments! Unit Tests! Everything's broken! Help I'm unsupervised!
 /*
  * @author John Henrik Muller
  */
 //-------------------------------------------------------------------------------------------------
+
 //CLASS HEADER//-----------------------------------------------------------------------------------
 public class Item {
     //FIELDS//-------------------------------------------------------------------------------------
@@ -19,11 +20,14 @@ public class Item {
     }
 
     //METHODS//------------------------------------------------------------------------------------
+
+    //Returns the item as a string, including name and location for use in the list display.
     @Override
     public String toString() {
         return oneLine(""," in: ");
     }
 
+    //Getters and setters for the what field.
     public String getWhat() {
         return mWhat;
     }
@@ -32,6 +36,7 @@ public class Item {
         mWhat = what;
     }
 
+    //Getters and setters for the where field.
     public String getWhere() {
         return mWhere;
     }
@@ -40,6 +45,7 @@ public class Item {
         mWhere = where;
     }
 
+    //Returns a string with the given values, pre and post, wrapped around the what and where fields.
     public String oneLine(String pre, String post) {
         return pre + mWhat + post + mWhere;
     }

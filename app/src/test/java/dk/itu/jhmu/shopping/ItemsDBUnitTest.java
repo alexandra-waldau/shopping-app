@@ -5,7 +5,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import static org.junit.Assert.*;
-
+//UNIT TESTS//-------------------------------------------------------------------------------------
 public class ItemsDBUnitTest {
     //Variable to hold our DB for testing.
     ItemsDB itemsDB;
@@ -68,5 +68,5 @@ public class ItemsDBUnitTest {
         itemsDB.removeAllItems();
         assertEquals(0,itemsDB.getSize());
     }
-
 }
+//END OF LINE//------------------------------------------------------------------------------------
