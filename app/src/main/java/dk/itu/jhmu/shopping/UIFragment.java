@@ -1,6 +1,5 @@
 package dk.itu.jhmu.shopping;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -96,8 +95,7 @@ public class UIFragment extends Fragment {
     //Presents a toast using the given string.
     private void makeToast(String input){
         //Not sure why we need to generate a context in a fragment but not an activity...
-        Context context = getContext();
-        Toast.makeText(context, input, Toast.LENGTH_SHORT).show();
+        Toast.makeText(getContext(), input, Toast.LENGTH_SHORT).show();
     }
 
     //Checks if an EditText field is empty. Returns True if empty, False if not.

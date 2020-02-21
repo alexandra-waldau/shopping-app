@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-//VERSION 4.3// Week 4 //--------------------------------------------------------------------------
+//VERSION 4.3.1// Week 4 //--------------------------------------------------------------------------
 //VERSION NOTES: Fragments! Unit Tests! Everything's broken! Help I'm unsupervised!
 /*
  * @author John Henrik Muller
@@ -82,7 +82,7 @@ class ItemsDB {
 
     //Lists all items currently in the Database.
     String listItems() {
-        String r= "";
+        String r = "";
         for (int i = 0; i<ItemsDB.size(); i++) {
             r += "\n Buy " + ItemsDB.get(i).toString();
         }

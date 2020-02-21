@@ -1,18 +1,16 @@
 package dk.itu.jhmu.shopping;
 
-import android.content.Context;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 import androidx.fragment.app.Fragment;
 
-//VERSION 4.3// Week 4 //--------------------------------------------------------------------------
+//VERSION 4.3.1// Week 4 //--------------------------------------------------------------------------
 //VERSION NOTES: Fragments! Unit Tests! Everything's broken! Help I'm unsupervised!
 /*
  * @author John Henrik Muller
@@ -41,10 +39,6 @@ public class ListFragment extends Fragment {
 
         //Sets up the itemsDB using the singleton method rather than the usual constructor.
         itemsDB = ItemsDB.get();
-
-        //Here's how to hide the keyboard... Thanks StackOverflow!
-        //Turns out this doesn't always work... :D Funny that hiding the keyboard is so difficult.
-        getActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
 
         //Setting up our other XML elements.
         itemsList = (TextView) v.findViewById(R.id.itemsListTextView);
@@ -97,8 +91,7 @@ public class ListFragment extends Fragment {
     //Code duplication here... I suppose I would make an interface that supports these methods? Depends.
     private void makeToast(String input){
         //Not sure why we need to generate a context in a fragment but not an activity...
-        Context context = getContext();
-        Toast.makeText(context, input, Toast.LENGTH_SHORT).show();
+        Toast.makeText(getContext(), input, Toast.LENGTH_SHORT).show();
     }
 }
 //END OF LINE//------------------------------------------------------------------------------------
