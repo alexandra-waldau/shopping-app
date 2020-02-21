@@ -1,6 +1,6 @@
 package dk.itu.jhmu.shopping;
 
-//VERSION 4.2// Week 4 //--------------------------------------------------------------------------
+//VERSION 4.3// Week 4 //--------------------------------------------------------------------------
 //VERSION NOTES: Fragments! Unit Tests! Everything's broken! Help I'm unsupervised!
 /*
  * @author John Henrik Muller
@@ -10,10 +10,12 @@ package dk.itu.jhmu.shopping;
 //CLASS HEADER//-----------------------------------------------------------------------------------
 public class Item {
     //FIELDS//-------------------------------------------------------------------------------------
+
     private String mWhat = null;
     private String mWhere = null;
 
     //CONSTRUCTOR//--------------------------------------------------------------------------------
+
     public Item(String what, String where) {
         mWhat = what;
         mWhere = where;
@@ -28,25 +30,25 @@ public class Item {
     }
 
     //Getters and setters for the what field.
-    public String getWhat() {
+    String getWhat() {
         return mWhat;
     }
 
-    public void setWhat(String what) {
+    void setWhat(String what) {
         mWhat = what;
     }
 
     //Getters and setters for the where field.
-    public String getWhere() {
+    String getWhere() {
         return mWhere;
     }
 
-    public void setWhere(String where) {
+    void setWhere(String where) {
         mWhere = where;
     }
 
     //Returns a string with the given values, pre and post, wrapped around the what and where fields.
-    public String oneLine(String pre, String post) {
+    String oneLine(String pre, String post) {
         return pre + mWhat + post + mWhere;
     }
 }

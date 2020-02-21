@@ -12,7 +12,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 import androidx.fragment.app.Fragment;
 
-//VERSION 4.2// Week 4 //--------------------------------------------------------------------------
+//VERSION 4.3// Week 4 //--------------------------------------------------------------------------
 //VERSION NOTES: Fragments! Unit Tests! Everything's broken! Help I'm unsupervised!
 /*
  * @author John Henrik Muller
@@ -22,7 +22,7 @@ import androidx.fragment.app.Fragment;
 //CLASS HEADER//-----------------------------------------------------------------------------------
 public class ListFragment extends Fragment {
     //FIELDS//-------------------------------------------------------------------------------------
-    // GUI variables //
+
     private TextView itemsList;
     private ItemsDB itemsDB;
     private Button removeItemBtn;
@@ -43,6 +43,7 @@ public class ListFragment extends Fragment {
         itemsDB = ItemsDB.get();
 
         //Here's how to hide the keyboard... Thanks StackOverflow!
+        //Turns out this doesn't always work... :D Funny that hiding the keyboard is so difficult.
         getActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
 
         //Setting up our other XML elements.
@@ -86,7 +87,7 @@ public class ListFragment extends Fragment {
     //HELPER METHODS//-----------------------------------------------------------------------------
 
     //Updates the shopping list display.
-    public void updateList() {
+    private void updateList() {
         itemsList.setBackgroundColor(Color.parseColor("#FFFFFF"));
         String list = "Shopping List:" + itemsDB.listItems();
         itemsList.setText(list);
@@ -94,8 +95,8 @@ public class ListFragment extends Fragment {
 
     //Presents a toast using the given string.
     //Code duplication here... I suppose I would make an interface that supports these methods? Depends.
-    public void makeToast(String input){
-        //NO idea if this works or why, application context is still a mystery to me.
+    private void makeToast(String input){
+        //Not sure why we need to generate a context in a fragment but not an activity...
         Context context = getContext();
         Toast.makeText(context, input, Toast.LENGTH_SHORT).show();
     }

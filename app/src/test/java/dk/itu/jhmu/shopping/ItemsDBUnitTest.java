@@ -3,14 +3,14 @@ package dk.itu.jhmu.shopping;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-
 import static org.junit.Assert.*;
-//UNIT TESTS//-------------------------------------------------------------------------------------
+
+//UNIT TEST//-------------------------------------------------------------------------------------
 public class ItemsDBUnitTest {
     //Variable to hold our DB for testing.
     ItemsDB itemsDB;
 
-    //Create our DB and fill it with items.
+    //Performs this step before each test.
     @Before
     public void setup () {
         itemsDB = ItemsDB.get();
@@ -21,12 +21,13 @@ public class ItemsDBUnitTest {
         itemsDB.addItem("butter", "Irma");
     }
 
+    //Performs this step after each test.
     @After
     public void cleanup() {
         itemsDB.removeAllItems();
     }
 
-    //Should list all the items added.
+    //And now for our tests. Added a few extra for fun.
     @Test
     public void ShouldListAllItemsCorrectly() {
         assertEquals("\n Buy coffee in: Irma"+

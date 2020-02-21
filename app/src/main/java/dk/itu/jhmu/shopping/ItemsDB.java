@@ -1,12 +1,12 @@
 package dk.itu.jhmu.shopping;
 
-import android.content.Context; //Think we will need this eventually?
+import android.content.Context; //Will implement this when needed.
 
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-//VERSION 4.2// Week 4 //--------------------------------------------------------------------------
+//VERSION 4.3// Week 4 //--------------------------------------------------------------------------
 //VERSION NOTES: Fragments! Unit Tests! Everything's broken! Help I'm unsupervised!
 /*
  * @author John Henrik Muller
@@ -16,6 +16,7 @@ import java.util.List;
 //CLASS HEADER//-----------------------------------------------------------------------------------
 class ItemsDB {
     //FIELDS//-------------------------------------------------------------------------------------
+
     private List<Item> ItemsDB;
     private static ItemsDB sItemsDB;
     private int size;
@@ -38,7 +39,7 @@ class ItemsDB {
     }
 
     //Returns the current amount of items in the database.
-    public int getSize(){
+    int getSize(){
         return size + 1;
     }
 

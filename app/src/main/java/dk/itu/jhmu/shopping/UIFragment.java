@@ -1,6 +1,5 @@
 package dk.itu.jhmu.shopping;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -8,13 +7,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 import androidx.fragment.app.Fragment;
 
-//VERSION 4.2// Week 4 //--------------------------------------------------------------------------
+//VERSION 4.3// Week 4 //--------------------------------------------------------------------------
 //VERSION NOTES: Fragments! Unit Tests! Everything's broken! Help I'm unsupervised!
 /*
  * @author John Henrik Muller
@@ -24,12 +22,11 @@ import androidx.fragment.app.Fragment;
 //CLASS HEADER//-----------------------------------------------------------------------------------
 public class UIFragment extends Fragment {
     //FIELDS//-------------------------------------------------------------------------------------
-    // GUI variables //
+
     private Button listItemsBtn;
     private Button addItemBtn;
     private EditText whereEditText;
     private EditText whatEditText;
-    // Model: Database of items //
     private ItemsDB itemsDB;
 
     //MAIN METHOD//--------------------------------------------------------------------------------
@@ -97,7 +94,8 @@ public class UIFragment extends Fragment {
     //HELPER METHODS//-----------------------------------------------------------------------------
 
     //Presents a toast using the given string.
-    public void makeToast(String input){
+    private void makeToast(String input){
+        //Not sure why we need to generate a context in a fragment but not an activity...
         Context context = getContext();
         Toast.makeText(context, input, Toast.LENGTH_SHORT).show();
     }
@@ -106,12 +104,5 @@ public class UIFragment extends Fragment {
     private boolean isEmpty(EditText text) {
         return text.getText().toString().trim().length() == 0;
     }
-
-    //Hide keyboard helper method!
-    public static void hideKeyboardFrom(Context context, View view) {
-        InputMethodManager imm = (InputMethodManager) context.getSystemService(Activity.INPUT_METHOD_SERVICE);
-        imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
-    }
-
 }
 //END OF LINE//------------------------------------------------------------------------------------
