@@ -7,8 +7,8 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Observable;
 
-//VERSION 6.0//------------------------------------------------------------------------------------
-/* VERSION NOTES: Recycler view comes into play!
+//VERSION 6.1//------------------------------------------------------------------------------------
+/* VERSION NOTES: Trying yo reimplement delete features and improve the look of the recyclerview.
  * @author John Henrik Muller
  */
 //-------------------------------------------------------------------------------------------------

@@ -1,7 +1,7 @@
 package dk.itu.jhmu.shopping;
 
-//VERSION 6.0//------------------------------------------------------------------------------------
-/* VERSION NOTES: Recycler view comes into play!
+//VERSION 6.1//------------------------------------------------------------------------------------
+/* VERSION NOTES: Trying to reimplement delete features and improve the look of the recycler view.
  * @author John Henrik Muller
  */
 //-------------------------------------------------------------------------------------------------
@@ -28,20 +28,22 @@ public class Item {
         return oneLine(""," in: ");
     }
 
-    //Getters and setters for the what field.
+    //Returns the name of the item as a String.
     String getWhat() {
         return mWhat;
     }
 
+    //Accepts a string to set the name of the item.
     void setWhat(String what) {
         mWhat = what;
     }
 
-    //Getters and setters for the where field.
+    //Returns the location of the item as a String.
     String getWhere() {
         return mWhere;
     }
 
+    //Accepts a string to set the location of the item.
     void setWhere(String where) {
         mWhere = where;
     }
@@ -51,4 +53,5 @@ public class Item {
         return pre + mWhat + post + mWhere;
     }
 }
+
 //END OF LINE//------------------------------------------------------------------------------------

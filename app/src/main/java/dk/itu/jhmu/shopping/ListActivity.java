@@ -5,8 +5,8 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import android.os.Bundle;
 
-//VERSION 6.0//------------------------------------------------------------------------------------
-/* VERSION NOTES: Recycler view comes into play!
+//VERSION 6.1//------------------------------------------------------------------------------------
+/* VERSION NOTES: Trying to reimplement delete features and improve the look of the recycler view.
  * @author John Henrik Muller
  */
 //-------------------------------------------------------------------------------------------------

@@ -11,11 +11,8 @@ import android.widget.EditText;
 import android.widget.Toast;
 import androidx.fragment.app.Fragment;
 
-//VERSION 6.0//------------------------------------------------------------------------------------
-/* VERSION NOTES: Recycler view comes into play! Moved the delete buttons here for the moment...
- * Also had the dumb idea to change all instances of 'remove' item to 'delete' item... That was a pain
- * even with Android Studio refactoring.
- *
+//VERSION 6.1//------------------------------------------------------------------------------------
+/* VERSION NOTES: Trying to reimplement delete features and improve the look of the recycler view.
  * @author John Henrik Muller
  */
 //-------------------------------------------------------------------------------------------------

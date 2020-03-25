@@ -13,11 +13,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
 
-
-//VERSION 6.0//------------------------------------------------------------------------------------
-/* VERSION NOTES: Recycler view comes into play! Lots of changes here including two inner classes.
- * to support the Recycler view, removing the old delete buttons, and more.
- *
+//VERSION 6.1//------------------------------------------------------------------------------------
+/* VERSION NOTES: Trying to reimplement delete features and improve the look of the recycler view.
  * @author John Henrik Muller
  */
 //-------------------------------------------------------------------------------------------------
