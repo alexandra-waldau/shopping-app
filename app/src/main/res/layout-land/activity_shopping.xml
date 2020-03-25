@@ -1,65 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent" android:layout_height="match_parent">
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="center"
-        android:orientation="vertical" >
+    <FrameLayout
+        android:id="@+id/fragment_container"
+        android:layout_weight="1"
+        android:layout_width="0px"
+        android:layout_height="match_parent" />
 
-        <!-- TextView and EditText for the 'What' field-->
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:orientation="horizontal" >
+    <FrameLayout
+        android:id="@+id/list_container"
+        android:layout_weight="1"
+        android:layout_width="0px"
+        android:layout_height="match_parent" />
 
-            <EditText
-                android:id="@+id/whatEditText"
-                android:layout_width="200dp"
-                android:layout_height="wrap_content"
-                android:inputType="textAutoCorrect"
-                android:hint="@string/whatTextView"
-                android:imeOptions="actionDone"/>
-
-        </LinearLayout>
-
-        <!-- TextView and EditText for the 'Where' field-->
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:orientation="horizontal" >
-
-            <EditText
-                android:id="@+id/whereEditText"
-                android:layout_width="200dp"
-                android:layout_height="wrap_content"
-                android:inputType="textAutoCorrect"
-                android:hint="@string/whereTextView"
-                android:imeOptions="actionDone"/>
-
-        </LinearLayout>
-
-        <!-- Button to Add a new Item -->
-        <Button
-            android:id="@+id/addItemBtn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/addItemBtn_name"
-            android:textAllCaps="false"
-            android:backgroundTint="@android:color/holo_green_light" />
-
-        <!-- Button to List all Items -->
-        <Button
-            android:id="@+id/listItemsBtn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/listItemsBtn_name"
-            android:textAllCaps="false"
-            android:backgroundTint="@android:color/holo_blue_light" />
-
-    </LinearLayout>
-
-</FrameLayout>
+</LinearLayout>

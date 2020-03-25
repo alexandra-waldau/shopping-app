@@ -1,7 +1,6 @@
 package dk.itu.jhmu.shopping;
 
-//VERSION 4.3.1// Week 4 //--------------------------------------------------------------------------
-//VERSION NOTES: Fragments! Unit Tests! Everything's broken! Help I'm unsupervised!
+//VERSION 5.0//------------------------------------------------------------------------------------
 /*
  * @author John Henrik Muller
  */

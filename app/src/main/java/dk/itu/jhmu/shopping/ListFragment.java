@@ -10,15 +10,17 @@ import android.widget.TextView;
 import android.widget.Toast;
 import androidx.fragment.app.Fragment;
 
-//VERSION 4.3.1// Week 4 //--------------------------------------------------------------------------
-//VERSION NOTES: Fragments! Unit Tests! Everything's broken! Help I'm unsupervised!
+import java.util.Observable;
+import java.util.Observer;
+
+//VERSION 5.0//------------------------------------------------------------------------------------
 /*
  * @author John Henrik Muller
  */
 //-------------------------------------------------------------------------------------------------
 
 //CLASS HEADER//-----------------------------------------------------------------------------------
-public class ListFragment extends Fragment {
+public class ListFragment extends Fragment implements Observer {
     //FIELDS//-------------------------------------------------------------------------------------
 
     private TextView itemsList;
@@ -38,7 +40,8 @@ public class ListFragment extends Fragment {
         View v = inflater.inflate(R.layout.fragment_list, container, false);
 
         //Sets up the itemsDB using the singleton method rather than the usual constructor.
-        itemsDB = ItemsDB.get();
+        itemsDB = ItemsDB.get(getActivity());
+        itemsDB.addObserver(this);
 
         //Setting up our other XML elements.
         itemsList = (TextView) v.findViewById(R.id.itemsListTextView);
@@ -51,7 +54,7 @@ public class ListFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 if (!itemsDB.isEmpty()) {
-                    itemsDB.removeLastItem();
+                    itemsDB.deleteLastItem();
                     updateList();
                     makeToast(getString(R.string.removedItemToast));
                 } else {
@@ -66,7 +69,7 @@ public class ListFragment extends Fragment {
             @Override
             public void onClick(View v){
                 if (!itemsDB.isEmpty()) {
-                    itemsDB.removeAllItems();
+                    itemsDB.deleteAllItems();
                     updateList();
                     makeToast(getString(R.string.removedAllItemsToast));
                 } else {
@@ -76,6 +79,12 @@ public class ListFragment extends Fragment {
         });
 
         return v;
+    }
+
+    //This is our update method forced by the implementation of the Observer class.
+    @Override
+    public void update(Observable observable, Object object) {
+        itemsList.setText("Shopping List"+itemsDB.listItems());
     }
 
     //HELPER METHODS//-----------------------------------------------------------------------------
@@ -93,5 +102,7 @@ public class ListFragment extends Fragment {
         //Not sure why we need to generate a context in a fragment but not an activity...
         Toast.makeText(getContext(), input, Toast.LENGTH_SHORT).show();
     }
+
+
 }
 //END OF LINE//------------------------------------------------------------------------------------

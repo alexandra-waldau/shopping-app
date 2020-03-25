@@ -5,8 +5,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import android.os.Bundle;
 
-//VERSION 4.3.1// Week 4 //--------------------------------------------------------------------------
-//VERSION NOTES: Fragments! Unit Tests! Everything's broken! Help I'm unsupervised!
+//VERSION 5.0//------------------------------------------------------------------------------------
 /*
  * @author John Henrik Muller
  */
@@ -22,7 +21,6 @@ public class ListActivity extends AppCompatActivity {
         setContentView(R.layout.activity_shopping);
 
         //Here's our fragment manager! It manages fragments!
-        //I don't know why we still need a ListActivity but I guess we will find out soon...
         FragmentManager fm = getSupportFragmentManager();
         Fragment fragment = fm.findFragmentById(R.id.fragment_container);
 

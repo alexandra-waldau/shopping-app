@@ -4,16 +4,18 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
+import android.content.Context;
 
 //UNIT TEST//-------------------------------------------------------------------------------------
 public class ItemsDBUnitTest {
     //Variable to hold our DB for testing.
     ItemsDB itemsDB;
+    Context context = null;
 
     //Performs this step before each test.
     @Before
     public void setup () {
-        itemsDB = ItemsDB.get();
+        itemsDB = ItemsDB.get(context);
         itemsDB.addItem("coffee", "Irma");
         itemsDB.addItem("carrots", "Netto");
         itemsDB.addItem("milk", "Netto");
@@ -24,7 +26,7 @@ public class ItemsDBUnitTest {
     //Performs this step after each test.
     @After
     public void cleanup() {
-        itemsDB.removeAllItems();
+        itemsDB.deleteAllItems();
     }
 
     //And now for our tests. Added a few extra for fun.
@@ -40,7 +42,7 @@ public class ItemsDBUnitTest {
 
     @Test
     public void BreadItemShouldBeDeleted () {
-        itemsDB.removeItem("bread");
+        itemsDB.deleteItem("bread");
         assertEquals("\n Buy coffee in: Irma"+
                         "\n Buy carrots in: Netto" +
                         "\n Buy milk in: Netto" +
@@ -50,7 +52,7 @@ public class ItemsDBUnitTest {
 
     @Test
     public void LastItemShouldBeDeleted () {
-        itemsDB.removeLastItem();
+        itemsDB.deleteLastItem();
         assertEquals("\n Buy coffee in: Irma"+
                         "\n Buy carrots in: Netto" +
                         "\n Buy milk in: Netto" +
@@ -60,13 +62,13 @@ public class ItemsDBUnitTest {
 
     @Test
     public void ShouldDeleteAllItems() {
-        itemsDB.removeAllItems();
+        itemsDB.deleteAllItems();
         assertEquals("", itemsDB.listItems());
     }
 
     @Test
     public void ShouldReturnTheEmptySize() {
-        itemsDB.removeAllItems();
+        itemsDB.deleteAllItems();
         assertEquals(0,itemsDB.getSize());
     }
 }

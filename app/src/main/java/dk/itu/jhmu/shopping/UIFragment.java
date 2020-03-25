@@ -11,8 +11,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 import androidx.fragment.app.Fragment;
 
-//VERSION 4.3// Week 4 //--------------------------------------------------------------------------
-//VERSION NOTES: Fragments! Unit Tests! Everything's broken! Help I'm unsupervised!
+//VERSION 5.0//------------------------------------------------------------------------------------
 /*
  * @author John Henrik Muller
  */
@@ -40,9 +39,9 @@ public class UIFragment extends Fragment {
         View v = inflater.inflate(R.layout.fragment_ui, container, false);
 
         //Creates the item database, uses the Singleton method rather than the constructor.
-        itemsDB = ItemsDB.get();
+        itemsDB = ItemsDB.get(getActivity());
 
-        //Here's how to hide the keyboard... Thanks StackOverflow!
+        //Hide keyboard
         getActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
 
         //Attaching a bunch of variables to elements in our XML.

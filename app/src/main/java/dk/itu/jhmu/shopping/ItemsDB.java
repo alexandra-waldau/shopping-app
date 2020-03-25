@@ -1,41 +1,46 @@
 package dk.itu.jhmu.shopping;
 
-import android.content.Context; //Will implement this when needed.
+import android.content.Context;
 
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Observable;
 
-//VERSION 4.3.1// Week 4 //--------------------------------------------------------------------------
-//VERSION NOTES: Fragments! Unit Tests! Everything's broken! Help I'm unsupervised!
+//VERSION 5.0//------------------------------------------------------------------------------------
 /*
  * @author John Henrik Muller
  */
 //-------------------------------------------------------------------------------------------------
 
 //CLASS HEADER//-----------------------------------------------------------------------------------
-class ItemsDB {
+class ItemsDB extends Observable {
     //FIELDS//-------------------------------------------------------------------------------------
 
-    private List<Item> ItemsDB;
+    private List<Item> itemsDBList;
     private static ItemsDB sItemsDB;
     private int size;
 
     //CONSTRUCTOR//--------------------------------------------------------------------------------
-    private ItemsDB() {
-        ItemsDB = new ArrayList<>();
+    private ItemsDB(Context context) {
+        itemsDBList = new ArrayList<>();
         //Sets an initial size of -1 for testing the List size.
         size = -1;
     }
 
     //METHODS//------------------------------------------------------------------------------------
 
-    //Singleton method to return the current ItemsDB. Used when switching activities.
-    static ItemsDB get() {
+    //Singleton method to return the current itemsDBList. Used when switching activities
+    static ItemsDB get(Context context) {
         if (sItemsDB == null) {
-            sItemsDB = new ItemsDB();
+            sItemsDB = new ItemsDB(context);
         }
         return sItemsDB;
+    }
+
+    //Returns all the items in the DB as a List of Items.
+    List<Item> getItems(){
+        return itemsDBList;
     }
 
     //Returns the current amount of items in the database.
@@ -45,34 +50,52 @@ class ItemsDB {
 
     //Takes two Strings as an input to create and add a new Item to the Database.
     void addItem(String what, String where) {
-        ItemsDB.add(new Item(what,where));
+        itemsDBList.add(new Item(what,where));
         size++;
+        this.setChanged();
+        notifyObservers();
     }
 
-    //Can search the list for a given item name and remove it. Would like to implement this functionality
-    //later.
-    void removeItem(String itemName) {
+    /* Might have to use this method
+     public void addItem(Item i) {
+        itemsDBList.add(i);
+        this.setChanged();
+        notifyObservers();
+    }
+     */
 
-        Iterator<Item> iterator = ItemsDB.iterator();
+
+    //Can search the list for a given item name and delete it. Would like to implement this functionality
+    //later.
+    void deleteItem (String itemName) {
+
+        Iterator<Item> iterator = itemsDBList.iterator();
 
         while (iterator.hasNext()) {
             if (iterator.next().getWhat().equals(itemName)) {
                 iterator.remove();
             }
         }
+
+        this.setChanged();
+        notifyObservers();
     }
 
-    //Removes the most recent item added to the database.
+    //Deletes the most recent item added to the database.
     //Advise checking if the Database is empty first with isEmpty(), otherwise risk NullPointerException.
-    void removeLastItem() {
-        ItemsDB.remove(size);
+    void deleteLastItem() {
+        itemsDBList.remove(size);
         size--;
+        this.setChanged();
+        notifyObservers();
     }
 
-    //Removes all items in the database.
-    void removeAllItems() {
-        ItemsDB.clear();
+    //Deletes all items in the database.
+    void deleteAllItems() {
+        itemsDBList.clear();
         size = -1;
+        this.setChanged();
+        notifyObservers();
     }
 
     //Returns true if there are no more items in the List.
@@ -83,20 +106,20 @@ class ItemsDB {
     //Lists all items currently in the Database.
     String listItems() {
         String r = "";
-        for (int i = 0; i<ItemsDB.size(); i++) {
-            r += "\n Buy " + ItemsDB.get(i).toString();
+        for (int i = 0; i< itemsDBList.size(); i++) {
+            r += "\n Buy " + itemsDBList.get(i).toString();
         }
         return r;
     }
 
-    //Fills the database with a bunch of items. No longer used.
     @Deprecated
+    //Fills the database with a bunch of items. No longer used.
     void fillItemsDB() {
-        ItemsDB.add(new Item("coffee", "Irma"));
-        ItemsDB.add(new Item("carrots", "Netto"));
-        ItemsDB.add(new Item("milk", "Netto"));
-        ItemsDB.add(new Item("bread", "bakery"));
-        ItemsDB.add(new Item("butter", "Irma"));
+        itemsDBList.add(new Item("coffee", "Irma"));
+        itemsDBList.add(new Item("carrots", "Netto"));
+        itemsDBList.add(new Item("milk", "Netto"));
+        itemsDBList.add(new Item("bread", "bakery"));
+        itemsDBList.add(new Item("butter", "Irma"));
     }
 }
 //END OF LINE//------------------------------------------------------------------------------------
