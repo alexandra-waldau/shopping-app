@@ -5,8 +5,8 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import android.os.Bundle;
 
-//VERSION 5.0//------------------------------------------------------------------------------------
-/*
+//VERSION 6.0//------------------------------------------------------------------------------------
+/* VERSION NOTES: Recycler view comes into play!
  * @author John Henrik Muller
  */
 //-------------------------------------------------------------------------------------------------

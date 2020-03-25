@@ -11,8 +11,8 @@ import android.widget.EditText;
 import android.widget.Toast;
 import androidx.fragment.app.Fragment;
 
-//VERSION 5.0//------------------------------------------------------------------------------------
-/*
+//VERSION 6.0//------------------------------------------------------------------------------------
+/* VERSION NOTES: Recycler view comes into play!
  * @author John Henrik Muller
  */
 //-------------------------------------------------------------------------------------------------

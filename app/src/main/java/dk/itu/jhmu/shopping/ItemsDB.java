@@ -7,8 +7,8 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Observable;
 
-//VERSION 5.0//------------------------------------------------------------------------------------
-/*
+//VERSION 6.0//------------------------------------------------------------------------------------
+/* VERSION NOTES: Recycler view comes into play!
  * @author John Henrik Muller
  */
 //-------------------------------------------------------------------------------------------------

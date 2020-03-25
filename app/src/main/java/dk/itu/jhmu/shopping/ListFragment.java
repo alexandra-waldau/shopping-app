@@ -13,8 +13,8 @@ import androidx.fragment.app.Fragment;
 import java.util.Observable;
 import java.util.Observer;
 
-//VERSION 5.0//------------------------------------------------------------------------------------
-/*
+//VERSION 6.0//------------------------------------------------------------------------------------
+/* VERSION NOTES: Recycler view comes into play!
  * @author John Henrik Muller
  */
 //-------------------------------------------------------------------------------------------------
