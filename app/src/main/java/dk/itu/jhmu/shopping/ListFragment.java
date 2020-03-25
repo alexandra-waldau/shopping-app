@@ -1,32 +1,34 @@
 package dk.itu.jhmu.shopping;
 
-import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
-import androidx.fragment.app.Fragment;
 
-import java.util.Observable;
-import java.util.Observer;
+import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
+import java.util.List;
+
 
 //VERSION 6.0//------------------------------------------------------------------------------------
-/* VERSION NOTES: Recycler view comes into play!
+/* VERSION NOTES: Recycler view comes into play! Lots of changes here including two inner classes.
+ * to support the Recycler view, removing the old delete buttons, and more.
+ *
  * @author John Henrik Muller
  */
 //-------------------------------------------------------------------------------------------------
 
 //CLASS HEADER//-----------------------------------------------------------------------------------
-public class ListFragment extends Fragment implements Observer {
+public class ListFragment extends Fragment {
     //FIELDS//-------------------------------------------------------------------------------------
 
-    private TextView itemsList;
-    private ItemsDB itemsDB;
-    private Button removeItemBtn;
-    private Button removeAllItemsBtn;
+    //private ItemsDB itemsDB;
+    private RecyclerView mListRecyclerView;
+    private ItemAdapter mAdapter;
 
     //MAIN METHOD//--------------------------------------------------------------------------------
 
@@ -37,72 +39,90 @@ public class ListFragment extends Fragment implements Observer {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View v = inflater.inflate(R.layout.fragment_list, container, false);
+        //Now inflates a recyclerview for our list instead of the list we had before.
+        View v = inflater.inflate(R.layout.fragment_list_recyclerview, container, false);
 
-        //Sets up the itemsDB using the singleton method rather than the usual constructor.
-        itemsDB = ItemsDB.get(getActivity());
-        itemsDB.addObserver(this);
+        //This creates the recycler view and attaches it to our variable.
+        mListRecyclerView = (RecyclerView) v
+                .findViewById(R.id.list_recycler_view);
+        mListRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
-        //Setting up our other XML elements.
-        itemsList = (TextView) v.findViewById(R.id.itemsListTextView);
-        updateList();
-
-        //Clicking the remove item button will remove items in order of most recent to least recent.
-        //If there are no items left, will play a special toast.
-        removeItemBtn = (Button) v.findViewById(R.id.removeItemBtn);
-        removeItemBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (!itemsDB.isEmpty()) {
-                    itemsDB.deleteLastItem();
-                    updateList();
-                    makeToast(getString(R.string.removedItemToast));
-                } else {
-                    makeToast(getString(R.string.noItemsToast));
-                }
-            }
-        });
-
-        //Clicking this button will remove all items on the list.
-        removeAllItemsBtn = (Button) v.findViewById(R.id.removeAllItemsBtn);
-        removeAllItemsBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v){
-                if (!itemsDB.isEmpty()) {
-                    itemsDB.deleteAllItems();
-                    updateList();
-                    makeToast(getString(R.string.removedAllItemsToast));
-                } else {
-                    makeToast(getString(R.string.noItemsToast));
-                }
-            }
-        });
+        //This is our new helper method which updates the UI.
+        updateUI();
 
         return v;
     }
 
-    //This is our update method forced by the implementation of the Observer class.
-    @Override
-    public void update(Observable observable, Object object) {
-        itemsList.setText("Shopping List"+itemsDB.listItems());
-    }
-
     //HELPER METHODS//-----------------------------------------------------------------------------
 
-    //Updates the shopping list display.
-    private void updateList() {
-        itemsList.setBackgroundColor(Color.parseColor("#FFFFFF"));
-        String list = "Shopping List:" + itemsDB.listItems();
-        itemsList.setText(list);
+    //This method updates the UI with the latest ItemsDB and puts it into the RecyclerView.
+    private void updateUI() {
+        ItemsDB itemsDB = ItemsDB.get(getActivity());
+        List<Item> items = itemsDB.getItems();
+        mAdapter = new ItemAdapter(items);
+        mListRecyclerView.setAdapter(mAdapter);
     }
 
-    //Presents a toast using the given string.
-    //Code duplication here... I suppose I would make an interface that supports these methods? Depends.
-    private void makeToast(String input){
-        //Not sure why we need to generate a context in a fragment but not an activity...
-        Toast.makeText(getContext(), input, Toast.LENGTH_SHORT).show();
+    //INNER CLASSES//------------------------------------------------------------------------------
+
+    //The ItemHolder is an extension of the ViewHolder class. It simply holds the information about a given item.
+    private class ItemHolder extends RecyclerView.ViewHolder {
+        //FIELDS//
+        private TextView mWhatTextView;
+        private TextView mWhereTextView;
+        private TextView mNoView;
+
+        //CONSTRUCTOR//
+        public ItemHolder(View itemView) {
+            super(itemView);
+
+            mNoView = itemView.findViewById(R.id.item_no);
+            mWhatTextView = itemView.findViewById(R.id.item_what);
+            mWhereTextView = itemView.findViewById(R.id.item_where);
+
+        }
+
+        //METHODS//
+        public void bind(Item item, int position) {
+            mNoView.setText(" " + position + " ");
+            mWhatTextView.setText(item.getWhat());
+            mWhereTextView.setText(item.getWhere());
+        }
+
     }
 
+    //The ItemAdapter class is an extension of the Adapter class, it communicates between the
+    //RecyclerView and our ItemHolders.
+    private class ItemAdapter extends RecyclerView.Adapter<ItemHolder> {
+        //FIELDS//
+        private List<Item> mItems;
+
+        //CONSTRUCTOR//
+        public ItemAdapter(List<Item> items) {
+            mItems = items;
+        }
+
+        //METHODS//
+        @NonNull
+        @Override
+        public ItemHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+            LayoutInflater layoutInflater = LayoutInflater.from(getActivity());
+            View v = layoutInflater.inflate(R.layout.one_row, parent, false);
+            return new ItemHolder(v);
+        }
+
+        @Override
+        public void onBindViewHolder(@NonNull ItemHolder holder, int position) {
+            final Item item = mItems.get(position);
+            holder.bind(item, position);
+        }
+
+        @Override
+        public int getItemCount() {
+            return mItems.size();
+        }
+
+    }
 
 }
 //END OF LINE//------------------------------------------------------------------------------------

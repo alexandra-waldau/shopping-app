@@ -5,31 +5,6 @@
     android:layout_height="match_parent"
     android:gravity="center"
     android:orientation="vertical"
-    android:layout_margin="16dp">
-
-    <!-- TextView that shows the ItemList-->
-    <TextView
-        android:id="@+id/itemsListTextView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="24dp" />
-
-    <!-- Button to remove the lowest Item on the list -->
-    <Button
-        android:id="@+id/removeItemBtn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/removeItemBtn_name"
-        android:textAllCaps="false"
-        android:backgroundTint="@android:color/holo_red_light" />
-
-    <!-- Button to remove all Items on the list. -->
-    <Button
-        android:id="@+id/removeAllItemsBtn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/removeAllItemsBtn_name"
-        android:textAllCaps="false"
-        android:backgroundTint="@android:color/holo_red_light" />
+    android:layout_margin="6dp">
 
 </LinearLayout>

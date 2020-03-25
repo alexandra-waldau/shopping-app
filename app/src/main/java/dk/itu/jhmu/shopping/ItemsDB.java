@@ -35,6 +35,12 @@ class ItemsDB extends Observable {
         if (sItemsDB == null) {
             sItemsDB = new ItemsDB(context);
         }
+
+        //This means each time the singleton is called the ItemsDB will get more items but that's OK for now.
+        //It's quicker to test the Recycler View this way.
+        //This also breaks our JUnit tests if we don't comment it out beforehand.
+        sItemsDB.fillItemsDB();
+
         return sItemsDB;
     }
 
@@ -55,15 +61,6 @@ class ItemsDB extends Observable {
         this.setChanged();
         notifyObservers();
     }
-
-    /* Might have to use this method
-     public void addItem(Item i) {
-        itemsDBList.add(i);
-        this.setChanged();
-        notifyObservers();
-    }
-     */
-
 
     //Can search the list for a given item name and delete it. Would like to implement this functionality
     //later.
@@ -112,8 +109,7 @@ class ItemsDB extends Observable {
         return r;
     }
 
-    @Deprecated
-    //Fills the database with a bunch of items. No longer used.
+    //Fills the database with a bunch of items. Used for testing!
     void fillItemsDB() {
         itemsDBList.add(new Item("coffee", "Irma"));
         itemsDBList.add(new Item("carrots", "Netto"));

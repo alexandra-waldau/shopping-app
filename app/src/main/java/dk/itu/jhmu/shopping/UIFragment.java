@@ -12,7 +12,10 @@ import android.widget.Toast;
 import androidx.fragment.app.Fragment;
 
 //VERSION 6.0//------------------------------------------------------------------------------------
-/* VERSION NOTES: Recycler view comes into play!
+/* VERSION NOTES: Recycler view comes into play! Moved the delete buttons here for the moment...
+ * Also had the dumb idea to change all instances of 'remove' item to 'delete' item... That was a pain
+ * even with Android Studio refactoring.
+ *
  * @author John Henrik Muller
  */
 //-------------------------------------------------------------------------------------------------
@@ -41,7 +44,7 @@ public class UIFragment extends Fragment {
         //Creates the item database, uses the Singleton method rather than the constructor.
         itemsDB = ItemsDB.get(getActivity());
 
-        //Hide keyboard
+        //Hide keyboard...sometimes. :P
         getActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
 
         //Attaching a bunch of variables to elements in our XML.
@@ -101,5 +104,6 @@ public class UIFragment extends Fragment {
     private boolean isEmpty(EditText text) {
         return text.getText().toString().trim().length() == 0;
     }
+
 }
 //END OF LINE//------------------------------------------------------------------------------------
