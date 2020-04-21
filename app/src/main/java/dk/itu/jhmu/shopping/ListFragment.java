@@ -5,7 +5,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -17,8 +17,8 @@ import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
 
-//VERSION 6.2//------------------------------------------------------------------------------------
-/* VERSION NOTES: Trying to reimplement delete features and improve the look of the recycler view.
+//VERSION 6.3//------------------------------------------------------------------------------------
+/* VERSION NOTES: Visual improvements to RecyclerView and code cleanup.
  * @author John Henrik Muller
  */
 //-------------------------------------------------------------------------------------------------
@@ -76,7 +76,7 @@ public class ListFragment extends Fragment implements Observer {
 
         //Want to thank Rasmus Hervig for showing me how he implemented this delete button!
         //This will allow us to delete individual items from the recycler view!
-        private Button mDeleteButton;
+        private ImageButton mDeleteItemImgBtn;
 
         private TextView mWhatTextView;
         private TextView mWhereTextView;
@@ -89,12 +89,12 @@ public class ListFragment extends Fragment implements Observer {
             mNoView = itemView.findViewById(R.id.item_no);
             mWhatTextView = itemView.findViewById(R.id.item_what);
             mWhereTextView = itemView.findViewById(R.id.item_where);
-            mDeleteButton = itemView.findViewById(R.id.deleteItemBtn);
+            mDeleteItemImgBtn = itemView.findViewById(R.id.deleteItemImgBtn);
         }
 
         //METHODS//
         public void bind(Item item, int position) {
-            mNoView.setText(" " + position + " ");
+            mNoView.setText(" " + (position+1) + " "); //Trying to display positions starting from 1 upwards, not 0 upwards.
             mWhatTextView.setText(item.getWhat());
             mWhereTextView.setText(item.getWhere());
         }
@@ -128,7 +128,7 @@ public class ListFragment extends Fragment implements Observer {
 
             // Here's the delete button functionality. Again, thanks to Rasmus Hervig for showing me
             // how this works!
-            holder.mDeleteButton.setOnClickListener(new View.OnClickListener() {
+            holder.mDeleteItemImgBtn.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View v) {
                     itemsDB.deleteItem(item);  //Remove the item from the list.
                     notifyItemChanged(position); //Notify the adapter about the removed item.

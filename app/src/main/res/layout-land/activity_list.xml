@@ -17,7 +17,7 @@
 
         <!-- Button to delete the lowest Item on the list -->
         <Button
-            android:id="@+id/deleteItemBtn"
+            android:id="@+id/deleteItemImgBtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/deleteItemBtn_name"

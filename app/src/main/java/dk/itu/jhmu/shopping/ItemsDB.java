@@ -3,12 +3,11 @@ package dk.itu.jhmu.shopping;
 import android.content.Context;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Observable;
 
-//VERSION 6.2//------------------------------------------------------------------------------------
-/* VERSION NOTES: Trying to reimplement delete features and improve the look of the recycler view.
+//VERSION 6.3//------------------------------------------------------------------------------------
+/* VERSION NOTES: Visual improvements to RecyclerView and code cleanup.
  * @author John Henrik Muller
  */
 //-------------------------------------------------------------------------------------------------
@@ -58,6 +57,7 @@ class ItemsDB extends Observable {
     //Removes a given item from the ItemsDB.
     //Used to accept a string, and search for the item. Now requires a specific item given as a
     //parameter to successfully delete.
+    //Need to consider if addItem method should be changed to accept an Item only...
     void deleteItem (Item item) {
         itemsDBList.remove(item);
         this.setChanged();
@@ -65,8 +65,8 @@ class ItemsDB extends Observable {
     }
 
     //Deletes the most recent item added to the database.
-    //Advise checking if the Database is empty first with isEmpty(), otherwise risk NullPointerException.
-    void deleteLastItem() {
+    //Doesn't check if the database isn't already empty. Use at your own risk.
+    void deleteLastItem() throws NullPointerException {
         itemsDBList.remove(itemsDBList.size()-1);
         this.setChanged();
         notifyObservers();

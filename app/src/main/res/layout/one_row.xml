@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/item_title"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
@@ -9,6 +10,7 @@
         android:orientation="horizontal"
         android:padding="8dp">
 
+    <!-- TextView that shows the Item Number-->
     <TextView
         android:id="@+id/item_no"
         android:layout_width="wrap_content"
@@ -19,6 +21,7 @@
         android:text="N"
         android:textSize="15sp" />
 
+    <!-- TextView that shows the Item Name-->
     <TextView
         android:id="@+id/item_what"
         android:layout_width="wrap_content"
@@ -26,37 +29,41 @@
         android:layout_margin="0px"
         android:layout_weight="1"
         android:padding="8dp"
-        android:gravity="start"
+        android:gravity="left"
         android:text="@string/what_list"
-        android:textAlignment="center"
+        android:textAlignment="gravity"
         android:textColor="@android:color/black"
         android:textSize="20sp" />
 
+    <!-- TextView that shows the Item Location-->
     <TextView
         android:id="@+id/item_where"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="0px"
         android:layout_weight="1"
-        android:gravity="start"
+        android:gravity="left"
         android:padding="8dp"
         android:text="@string/where_list"
+        android:textAlignment="gravity"
         android:textColor="@android:color/black"
         android:textSize="20sp" />
 
-
+    <!-- Space for spacing purposes. :P -->
     <Space
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_weight="1" />
 
-    <Button
-        android:id="@+id/deleteItemBtn"
-        android:layout_width="20dp"
+    <!-- ImageButton used to display a delete icon, and delete items -->
+    <ImageButton
+        android:id="@+id/deleteItemImgBtn"
+        android:layout_width="50dp"
         android:layout_height="50dp"
         android:layout_gravity=""
         android:layout_margin="0px"
         android:layout_weight="1"
         android:background="@drawable/ic_delete_button_icon"
         android:padding="8dp" />
+
 </LinearLayout>
