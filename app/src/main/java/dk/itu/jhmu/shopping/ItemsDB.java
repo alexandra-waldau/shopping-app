@@ -1,13 +1,20 @@
 package dk.itu.jhmu.shopping;
 
+import dk.itu.jhmu.shopping.database.ItemBaseHelper;
+import dk.itu.jhmu.shopping.database.ItemCursorWrapper;
+import dk.itu.jhmu.shopping.database.ItemsDbSchema;
+
+import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Observable;
 
-//VERSION 7.0//------------------------------------------------------------------------------------
-/* VERSION NOTES: Adding SQL Lite Database! Constraint layouts! And more...
+//VERSION 7.1//------------------------------------------------------------------------------------
+/* VERSION NOTES: Implementing SQL Lite Database!
  * @author John Henrik Muller
  */
 //-------------------------------------------------------------------------------------------------
@@ -16,54 +23,91 @@ import java.util.Observable;
 class ItemsDB extends Observable {
     //FIELDS//-------------------------------------------------------------------------------------
 
-    private List<Item> itemsDBList;
+    //private List<Item> itemsDBList;
     private static ItemsDB sItemsDB;
+    private static SQLiteDatabase mDatabase;
 
     //CONSTRUCTOR//--------------------------------------------------------------------------------
     private ItemsDB(Context context) {
-        itemsDBList = new ArrayList<>();
+        if (getItemsDB().size() == 0) { //Throwing some items in for testing.
+            addItem("Bananas", "Irma");
+            addItem("Oreos", "Netto");
+            addItem("Milk", "Fotex");
+            addItem("Bread", "Rema1000");
+            addItem("Sugar", "Aldi");
+        }
     }
 
     //METHODS//------------------------------------------------------------------------------------
 
-    //Singleton method to return the current itemsDBList. Used when switching activities
-    static ItemsDB get(Context context) {
+    //Singleton method to return the current itemsDBList. Used when switching activities.
+    //Little more complicated now with some SQL Lite Database stuff going on...
+    public static ItemsDB get(Context context) {
         if (sItemsDB == null) {
-            sItemsDB = new ItemsDB(context);
-            //When it's first created, the itemsDB will be filled with junk items, for testing purposes.
-            sItemsDB.fillItemsDB();
+            mDatabase= new ItemBaseHelper(context.getApplicationContext())
+                    .getWritableDatabase();
+            sItemsDB= new ItemsDB(context);
         }
-
         return sItemsDB;
     }
 
-    //Returns all the items in the DB as a List of Items.
-    List<Item> getItems(){
-        return itemsDBList;
+    //Returns an ArrayList of items that are stored in the database.
+    public ArrayList<Item> getItemsDB() {
+        ArrayList<Item> items = new ArrayList<Item>();
+        ItemCursorWrapper cursor = queryItems(null, null);
+        cursor.moveToFirst();
+        while (!cursor.isAfterLast()) {
+            items.add(cursor.getItem());
+            cursor.moveToNext();
+        }
+        cursor.close();
+        return items;
     }
 
-    //Returns the current amount of items in the database.
-    int getSize(){
-        return itemsDBList.size();
+    //Allows you to query the database for Items... I think. :P
+    private static ItemCursorWrapper queryItems(String whereClause, String[] whereArgs) {
+        Cursor cursor = mDatabase.query(
+                ItemsDbSchema.ItemTable.NAME,
+                null, //Columns - null selects all columns
+                whereClause, whereArgs,
+                null, //GroupBy
+                null, //Having
+                null //OrderBy
+        );
+        return new ItemCursorWrapper(cursor);
     }
+
+    //Given a specific item, returns the content values of that item.
+    private static ContentValues getContentValues(Item item) {
+        ContentValues values = new ContentValues();
+        values.put(ItemsDbSchema.ItemTable.Cols.WHAT, item.getWhat());
+        values.put(ItemsDbSchema.ItemTable.Cols.WHERE, item.getWhere());
+        return values;
+    }
+
 
     //Takes two Strings as an input to create and add a new Item to the Database.
-    void addItem(String what, String where) {
-        itemsDBList.add(new Item(what,where));
+    void addItem(String what, String where){
+        Item newItem = new Item(what, where);
+        ContentValues values = getContentValues(newItem);
+        mDatabase.insert(ItemsDbSchema.ItemTable.NAME, null, values);
         this.setChanged();
         notifyObservers();
     }
 
-    //Removes a given item from the ItemsDB.
-    //Used to accept a string, and search for the item. Now requires a specific item given as a
-    //parameter to successfully delete.
-    //Need to consider if addItem method should be changed to accept an Item only...
-    void deleteItem (Item item) {
-        itemsDBList.remove(item);
+    //Given a string naming the item, removes that item from the database.
+    //This new implementation means I don't have to worry about my previous problems with this method.
+    public void deleteItem(String what) {
+        String whereclause = ItemsDbSchema.ItemTable.Cols.WHAT + "=?";
+        String whereArgs[] = {what};
+        mDatabase.delete(ItemsDbSchema.ItemTable.NAME, whereclause, whereArgs);
         this.setChanged();
         notifyObservers();
     }
 
+    //On the other hand, I am losing a lot of functionality, will have to decide if I want to re-implement
+    //some of these delete methods.
+    /*
     //Deletes the most recent item added to the database.
     //Doesn't check if the database isn't already empty. Use at your own risk.
     void deleteLastItem() throws NullPointerException {
@@ -92,16 +136,6 @@ class ItemsDB extends Observable {
         }
         return r;
     }
-
-    //Fills the database with a bunch of items. Used for testing!
-    void fillItemsDB() {
-        itemsDBList.add(new Item("coffee", "Irma"));
-        itemsDBList.add(new Item("carrots", "Netto"));
-        itemsDBList.add(new Item("milk", "REMA1000"));
-        itemsDBList.add(new Item("bread", "Bakery"));
-        itemsDBList.add(new Item("butter", "Aldi"));
-        this.setChanged();
-        notifyObservers();
-    }
+    */
 }
 //END OF LINE//------------------------------------------------------------------------------------

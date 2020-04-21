@@ -11,8 +11,8 @@ import android.widget.EditText;
 import android.widget.Toast;
 import androidx.fragment.app.Fragment;
 
-//VERSION 7.0//------------------------------------------------------------------------------------
-/* VERSION NOTES: Adding SQL Lite Database! Constraint layouts! And more...
+//VERSION 7.1//------------------------------------------------------------------------------------
+/* VERSION NOTES: Implementing SQL Lite Database!
  * @author John Henrik Muller
  */
 //-------------------------------------------------------------------------------------------------
@@ -23,7 +23,7 @@ public class UIFragment extends Fragment {
 
     private Button listItemsBtn;
     private Button addItemBtn;
-    private Button deleteAllItemsBtn;
+    //private Button deleteAllItemsBtn;
     private EditText whereEditText;
     private EditText whatEditText;
     private ItemsDB itemsDB;
@@ -88,6 +88,7 @@ public class UIFragment extends Fragment {
             }
         });
 
+        /* Temporarily disabled while I figure out this whole SQL Database thing...
         //When clicked, the listItemsButton will open the ListActivity.
         deleteAllItemsBtn = (Button) v.findViewById(R.id.deleteAllItemsBtn);
         deleteAllItemsBtn.setOnClickListener(new View.OnClickListener() {
@@ -96,6 +97,7 @@ public class UIFragment extends Fragment {
                 itemsDB.deleteAllItems();
             }
         });
+        */
 
         return v;
     }

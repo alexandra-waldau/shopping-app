@@ -6,6 +6,7 @@ public class ItemsDbSchema {
     //INNER CLASS//--------------------------------------------------------------------------------
     public static final class ItemTable {
         public static final String NAME = "Items";
+
         //INNER CLASS//----------------------------------------------------------------------------
         public static final class Cols {
             public static final String WHAT = "what";

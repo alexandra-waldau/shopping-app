@@ -1,6 +1,10 @@
 package dk.itu.jhmu.shopping;
 
-import android.graphics.Color;
+import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,17 +12,12 @@ import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
-import androidx.annotation.NonNull;
-import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
 
-//VERSION 7.0//------------------------------------------------------------------------------------
-/* VERSION NOTES: Adding SQL Lite Database! Constraint layouts! And more...
+//VERSION 7.1//------------------------------------------------------------------------------------
+/* VERSION NOTES: Implementing SQL Lite Database!
  * @author John Henrik Muller
  */
 //-------------------------------------------------------------------------------------------------
@@ -29,7 +28,7 @@ public class ListFragment extends Fragment implements Observer {
 
     private RecyclerView mListRecyclerView;
     private ItemAdapter mAdapter;
-    private ItemsDB itemsDB; //Not sure if we still need to hold on to this...
+    private ItemsDB itemsDB;
 
     //MAIN METHOD//--------------------------------------------------------------------------------
 
@@ -48,8 +47,6 @@ public class ListFragment extends Fragment implements Observer {
         //This creates the recycler view and attaches it to our variable.
         mListRecyclerView = (RecyclerView) v.findViewById(R.id.list_recycler_view);
         mListRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        //Sets the background colour of the RecyclerView to 'whitesmoke'.
-        mListRecyclerView.setBackgroundColor(Color.parseColor("#f5f5f5"));
 
         updateUI();
         return v;
@@ -59,60 +56,84 @@ public class ListFragment extends Fragment implements Observer {
 
     //This method updates the UI with the latest ItemsDB and puts it into the RecyclerView.
     private void updateUI() {
-        mAdapter = new ItemAdapter(itemsDB.getItems());
-        mListRecyclerView.setAdapter(mAdapter);
+        List<Item> items = itemsDB.getItemsDB();
+        if (mAdapter == null) {
+            mAdapter = new ItemAdapter(itemsDB.getItemsDB());
+            mListRecyclerView.setAdapter(mAdapter);
+        } else {
+            mAdapter.setItems(items);
+            mAdapter.notifyDataSetChanged();
+        }
     }
 
-    @Override
+    //Updates the Adapter as well as the UI.
     public void update(Observable observable, Object data) {
         mAdapter.notifyDataSetChanged();
+        updateUI();
     }
 
-    //INNER CLASSES//------------------------------------------------------------------------------
+    //INNER CLASS//================================================================================
 
-    //The ItemHolder is an extension of the ViewHolder class. It simply holds the information about a given item.
-    private class ItemHolder extends RecyclerView.ViewHolder {
-        //FIELDS//
+    // The ItemHolder is an extension of the ViewHolder class. It simply holds the information about
+    // a given item.
+
+    //CLASS HEADER//-------------------------------------------------------------------------------
+    private class ItemHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+        //FIELDS//---------------------------------------------------------------------------------
 
         //Want to thank Rasmus Hervig for showing me how he implemented this delete button!
         //This will allow us to delete individual items from the recycler view!
         private ImageButton mDeleteItemImgBtn;
-
         private TextView mWhatTextView;
         private TextView mWhereTextView;
         private TextView mNoView;
 
-        //CONSTRUCTOR//
+        //CONSTRUCTOR//----------------------------------------------------------------------------
         public ItemHolder(View itemView) {
             super(itemView);
-
+            //Sets up text and number views.
             mNoView = itemView.findViewById(R.id.item_no);
             mWhatTextView = itemView.findViewById(R.id.item_what);
             mWhereTextView = itemView.findViewById(R.id.item_where);
+            //Sets up our ImageButton used for deleting items.
             mDeleteItemImgBtn = itemView.findViewById(R.id.deleteItemImgBtn);
+            mDeleteItemImgBtn.setOnClickListener(this);
         }
 
-        //METHODS//
+        //METHODS//--------------------------------------------------------------------------------
+
+        //Binds the item, providing a positional number, what and where for the TextViews.
         public void bind(Item item, int position) {
-            mNoView.setText(" " + (position+1) + " "); //Trying to display positions starting from 1 upwards, not 0 upwards.
+            mNoView.setText(" " + (position+1) + " "); //Want to display positions starting from 1 upwards, not 0 upwards.
             mWhatTextView.setText(item.getWhat());
             mWhereTextView.setText(item.getWhere());
         }
 
+        //This onClick method allows us to delete items again.
+        @Override
+        public void onClick(View v) {
+            String deleteItem = mWhatTextView.getText().toString().trim();
+            itemsDB.deleteItem(deleteItem);
+        }
+
     }
 
-    //The ItemAdapter class is an extension of the Adapter class, it communicates between the
-    //RecyclerView and our ItemHolders.
+    //INNER CLASS//================================================================================
+
+    // The ItemAdapter class is an extension of the Adapter class, it communicates between the
+    // RecyclerView and our ItemHolders.
+
+    //CLASS HEADER//-------------------------------------------------------------------------------
     private class ItemAdapter extends RecyclerView.Adapter<ItemHolder> {
-        //FIELDS//
+        //FIELDS//---------------------------------------------------------------------------------
         private List<Item> mItems;
 
-        //CONSTRUCTOR//
+        //CONSTRUCTOR//----------------------------------------------------------------------------
         public ItemAdapter(List<Item> items) {
             mItems = items;
         }
 
-        //METHODS//
+        //METHODS//--------------------------------------------------------------------------------
         @NonNull
         @Override
         public ItemHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -126,16 +147,15 @@ public class ListFragment extends Fragment implements Observer {
             final Item item = mItems.get(position);
             holder.bind(item, position);
 
-            // Here's the delete button functionality. Again, thanks to Rasmus Hervig for showing me
-            // how this works!
-            holder.mDeleteItemImgBtn.setOnClickListener(new View.OnClickListener() {
-                public void onClick(View v) {
-                    itemsDB.deleteItem(item);  //Remove the item from the list.
-                    notifyItemChanged(position); //Notify the adapter about the removed item.
-                }
-            });
+            //Removed all the old code for deleting items from here, now in ItemHolder.OnClick().
         }
 
+        //Accepts a List of Item objects and sets them into the database.
+        void setItems(List<Item> items) {
+            mItems = items;
+        }
+
+        //Returns the amount of items in the database.
         @Override
         public int getItemCount() {
             return mItems.size();

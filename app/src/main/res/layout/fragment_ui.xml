@@ -3,24 +3,38 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#009688"
+    android:backgroundTint="#008577"
     android:gravity="center"
-    android:orientation="vertical"
-    android:layout_margin="16dp">
+    android:orientation="vertical">
+
+    <ImageView
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_gravity="center"
+        android:src="@drawable/ic_shopping_cart"
+        android:layout_margin="10dp"/>
+
+
 
     <!-- TextView and EditText for the 'What' field-->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:orientation="horizontal" >
+        android:orientation="horizontal">
 
         <EditText
             android:id="@+id/whatEditText"
-            android:layout_width="200dp"
-            android:layout_height="wrap_content"
-            android:inputType="textAutoCorrect"
+            android:layout_width="225dp"
+            android:layout_height="40dp"
+            android:background="@drawable/edit_round"
+            android:layout_margin="10dp"
+            android:drawableLeft="@drawable/ic_pencil_icon"
+            android:paddingLeft="10dp"
             android:hint="@string/whatTextView"
-            android:imeOptions="actionDone"/>
+            android:imeOptions="actionDone"
+            android:inputType="textAutoCorrect" />
 
     </LinearLayout>
 
@@ -29,15 +43,19 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:orientation="horizontal" >
+        android:orientation="horizontal">
 
         <EditText
             android:id="@+id/whereEditText"
-            android:layout_width="200dp"
-            android:layout_height="wrap_content"
-            android:inputType="textAutoCorrect"
+            android:layout_width="225dp"
+            android:layout_height="40dp"
+            android:background="@drawable/edit_round"
+            android:layout_margin="10dp"
+            android:drawableLeft="@drawable/ic_location_icon"
+            android:paddingLeft="10dp"
             android:hint="@string/whereTextView"
-            android:imeOptions="actionDone"/>
+            android:imeOptions="actionDone"
+            android:inputType="textAutoCorrect" />
 
     </LinearLayout>
 
@@ -46,27 +64,25 @@
         android:id="@+id/addItemBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:background="@drawable/button_round"
+        android:paddingHorizontal="20dp"
         android:text="@string/addItemBtn_name"
         android:textAllCaps="false"
-        android:backgroundTint="@android:color/holo_green_light" />
+        android:textColor="#FFFFFF"
+        android:textSize="20sp" />
 
     <!-- Button to List all Items -->
     <Button
         android:id="@+id/listItemsBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:background="@drawable/button_round"
+        android:paddingHorizontal="20dp"
         android:text="@string/listItemsBtn_name"
         android:textAllCaps="false"
-        android:backgroundTint="@android:color/holo_blue_light" />
-
-    <!-- Temporarily moving the delete buttons here until I can figure out what to do with them... -->
-    <!-- Button to delete all Items on the list. -->
-    <Button
-        android:id="@+id/deleteAllItemsBtn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/deleteAllItemsBtn_name"
-        android:textAllCaps="false"
-        android:backgroundTint="@android:color/holo_red_light" />
+        android:textColor="#FFFFFF"
+        android:textSize="20sp" />
 
 </LinearLayout>

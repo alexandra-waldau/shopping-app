@@ -7,8 +7,8 @@ import androidx.fragment.app.FragmentManager;
 import android.content.res.Configuration;
 import android.os.Bundle;
 
-//VERSION 7.0//------------------------------------------------------------------------------------
-/* VERSION NOTES: Adding SQL Lite Database! Constraint layouts! And more...
+//VERSION 7.1//------------------------------------------------------------------------------------
+/* VERSION NOTES: Implementing SQL Lite Database!
  * @author John Henrik Muller
  */
 //-------------------------------------------------------------------------------------------------
