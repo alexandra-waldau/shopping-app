@@ -1,6 +1,6 @@
 package dk.itu.jhmu.shopping;
 
-//VERSION 6.1//------------------------------------------------------------------------------------
+//VERSION 6.2//------------------------------------------------------------------------------------
 /* VERSION NOTES: Trying to reimplement delete features and improve the look of the recycler view.
  * @author John Henrik Muller
  */

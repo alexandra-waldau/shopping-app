@@ -60,18 +60,9 @@
         android:backgroundTint="@android:color/holo_blue_light" />
 
     <!-- Temporarily moving the delete buttons here until I can figure out what to do with them... -->
-    <!-- Button to remove the lowest Item on the list -->
+    <!-- Button to delete all Items on the list. -->
     <Button
-        android:id="@+id/removeItemBtn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/deleteItemBtn_name"
-        android:textAllCaps="false"
-        android:backgroundTint="@android:color/holo_red_light" />
-
-    <!-- Button to remove all Items on the list. -->
-    <Button
-        android:id="@+id/removeAllItemsBtn"
+        android:id="@+id/deleteAllItemsBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/deleteAllItemsBtn_name"

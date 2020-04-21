@@ -7,8 +7,8 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Observable;
 
-//VERSION 6.1//------------------------------------------------------------------------------------
-/* VERSION NOTES: Trying yo reimplement delete features and improve the look of the recyclerview.
+//VERSION 6.2//------------------------------------------------------------------------------------
+/* VERSION NOTES: Trying to reimplement delete features and improve the look of the recycler view.
  * @author John Henrik Muller
  */
 //-------------------------------------------------------------------------------------------------
@@ -19,13 +19,10 @@ class ItemsDB extends Observable {
 
     private List<Item> itemsDBList;
     private static ItemsDB sItemsDB;
-    private int size;
 
     //CONSTRUCTOR//--------------------------------------------------------------------------------
     private ItemsDB(Context context) {
         itemsDBList = new ArrayList<>();
-        //Sets an initial size of -1 for testing the List size.
-        size = -1;
     }
 
     //METHODS//------------------------------------------------------------------------------------
@@ -34,12 +31,9 @@ class ItemsDB extends Observable {
     static ItemsDB get(Context context) {
         if (sItemsDB == null) {
             sItemsDB = new ItemsDB(context);
+            //When it's first created, the itemsDB will be filled with junk items, for testing purposes.
+            sItemsDB.fillItemsDB();
         }
-
-        //This means each time the singleton is called the ItemsDB will get more items but that's OK for now.
-        //It's quicker to test the Recycler View this way.
-        //This also breaks our JUnit tests if we don't comment it out beforehand.
-        sItemsDB.fillItemsDB();
 
         return sItemsDB;
     }
@@ -51,29 +45,21 @@ class ItemsDB extends Observable {
 
     //Returns the current amount of items in the database.
     int getSize(){
-        return size + 1;
+        return itemsDBList.size();
     }
 
     //Takes two Strings as an input to create and add a new Item to the Database.
     void addItem(String what, String where) {
         itemsDBList.add(new Item(what,where));
-        size++;
         this.setChanged();
         notifyObservers();
     }
 
-    //Can search the list for a given item name and delete it. Would like to implement this functionality
-    //later.
-    void deleteItem (String itemName) {
-
-        Iterator<Item> iterator = itemsDBList.iterator();
-
-        while (iterator.hasNext()) {
-            if (iterator.next().getWhat().equals(itemName)) {
-                iterator.remove();
-            }
-        }
-
+    //Removes a given item from the ItemsDB.
+    //Used to accept a string, and search for the item. Now requires a specific item given as a
+    //parameter to successfully delete.
+    void deleteItem (Item item) {
+        itemsDBList.remove(item);
         this.setChanged();
         notifyObservers();
     }
@@ -81,8 +67,7 @@ class ItemsDB extends Observable {
     //Deletes the most recent item added to the database.
     //Advise checking if the Database is empty first with isEmpty(), otherwise risk NullPointerException.
     void deleteLastItem() {
-        itemsDBList.remove(size);
-        size--;
+        itemsDBList.remove(itemsDBList.size()-1);
         this.setChanged();
         notifyObservers();
     }
@@ -90,14 +75,13 @@ class ItemsDB extends Observable {
     //Deletes all items in the database.
     void deleteAllItems() {
         itemsDBList.clear();
-        size = -1;
         this.setChanged();
         notifyObservers();
     }
 
     //Returns true if there are no more items in the List.
     boolean isEmpty() {
-        return size == -1;
+        return itemsDBList.isEmpty();
     }
 
     //Lists all items currently in the Database.
@@ -113,9 +97,11 @@ class ItemsDB extends Observable {
     void fillItemsDB() {
         itemsDBList.add(new Item("coffee", "Irma"));
         itemsDBList.add(new Item("carrots", "Netto"));
-        itemsDBList.add(new Item("milk", "Netto"));
-        itemsDBList.add(new Item("bread", "bakery"));
-        itemsDBList.add(new Item("butter", "Irma"));
+        itemsDBList.add(new Item("milk", "REMA1000"));
+        itemsDBList.add(new Item("bread", "Bakery"));
+        itemsDBList.add(new Item("butter", "Aldi"));
+        this.setChanged();
+        notifyObservers();
     }
 }
 //END OF LINE//------------------------------------------------------------------------------------

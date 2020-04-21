@@ -11,8 +11,10 @@ import android.widget.EditText;
 import android.widget.Toast;
 import androidx.fragment.app.Fragment;
 
-//VERSION 6.1//------------------------------------------------------------------------------------
+//VERSION 6.2//------------------------------------------------------------------------------------
 /* VERSION NOTES: Trying to reimplement delete features and improve the look of the recycler view.
+ * Can now delete all items from the UI Fragment!
+ * Working on improving the look of recycler view...
  * @author John Henrik Muller
  */
 //-------------------------------------------------------------------------------------------------
@@ -23,6 +25,7 @@ public class UIFragment extends Fragment {
 
     private Button listItemsBtn;
     private Button addItemBtn;
+    private Button deleteAllItemsBtn;
     private EditText whereEditText;
     private EditText whatEditText;
     private ItemsDB itemsDB;
@@ -32,6 +35,7 @@ public class UIFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        itemsDB = ItemsDB.get(getContext());
     }
 
     @Override
@@ -86,6 +90,15 @@ public class UIFragment extends Fragment {
             }
         });
 
+        //When clicked, the listItemsButton will open the ListActivity.
+        deleteAllItemsBtn = (Button) v.findViewById(R.id.deleteAllItemsBtn);
+        deleteAllItemsBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                itemsDB.deleteAllItems();
+            }
+        });
+
         return v;
     }
 
@@ -98,6 +111,7 @@ public class UIFragment extends Fragment {
     }
 
     //Checks if an EditText field is empty. Returns True if empty, False if not.
+    //Used to check for user input.
     private boolean isEmpty(EditText text) {
         return text.getText().toString().trim().length() == 0;
     }
