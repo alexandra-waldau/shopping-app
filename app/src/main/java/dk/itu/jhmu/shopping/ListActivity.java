@@ -5,8 +5,8 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import android.os.Bundle;
 
-//VERSION 7.1//------------------------------------------------------------------------------------
-/* VERSION NOTES: Implementing SQL Lite Database!
+//VERSION 7.1.1//----------------------------------------------------------------------------------
+/* VERSION NOTES: Minor code cleanup.
  * @author John Henrik Muller
  */
 //-------------------------------------------------------------------------------------------------
@@ -20,7 +20,7 @@ public class ListActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_shopping);
 
-        //Here's our fragment manager! It manages fragments!
+        //Here we initialize our fragment manager and accompanying fragments.
         FragmentManager fm = getSupportFragmentManager();
         Fragment fragment = fm.findFragmentById(R.id.fragment_container);
 

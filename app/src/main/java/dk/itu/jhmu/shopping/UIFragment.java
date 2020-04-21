@@ -11,8 +11,8 @@ import android.widget.EditText;
 import android.widget.Toast;
 import androidx.fragment.app.Fragment;
 
-//VERSION 7.1//------------------------------------------------------------------------------------
-/* VERSION NOTES: Implementing SQL Lite Database!
+//VERSION 7.1.1//----------------------------------------------------------------------------------
+/* VERSION NOTES: Minor code cleanup.
  * @author John Henrik Muller
  */
 //-------------------------------------------------------------------------------------------------
@@ -23,7 +23,6 @@ public class UIFragment extends Fragment {
 
     private Button listItemsBtn;
     private Button addItemBtn;
-    //private Button deleteAllItemsBtn;
     private EditText whereEditText;
     private EditText whatEditText;
     private ItemsDB itemsDB;
@@ -88,17 +87,6 @@ public class UIFragment extends Fragment {
             }
         });
 
-        /* Temporarily disabled while I figure out this whole SQL Database thing...
-        //When clicked, the listItemsButton will open the ListActivity.
-        deleteAllItemsBtn = (Button) v.findViewById(R.id.deleteAllItemsBtn);
-        deleteAllItemsBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                itemsDB.deleteAllItems();
-            }
-        });
-        */
-
         return v;
     }
 
@@ -110,8 +98,7 @@ public class UIFragment extends Fragment {
         Toast.makeText(getContext(), input, Toast.LENGTH_SHORT).show();
     }
 
-    //Checks if an EditText field is empty. Returns True if empty, False if not.
-    //Used to check for user input.
+    //Checks if a given EditText is empty. Returns True if empty, False if not.
     private boolean isEmpty(EditText text) {
         return text.getText().toString().trim().length() == 0;
     }

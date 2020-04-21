@@ -16,8 +16,8 @@ import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
 
-//VERSION 7.1//------------------------------------------------------------------------------------
-/* VERSION NOTES: Implementing SQL Lite Database!
+//VERSION 7.1.1//----------------------------------------------------------------------------------
+/* VERSION NOTES: Minor code cleanup.
  * @author John Henrik Muller
  */
 //-------------------------------------------------------------------------------------------------
@@ -81,8 +81,6 @@ public class ListFragment extends Fragment implements Observer {
     private class ItemHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         //FIELDS//---------------------------------------------------------------------------------
 
-        //Want to thank Rasmus Hervig for showing me how he implemented this delete button!
-        //This will allow us to delete individual items from the recycler view!
         private ImageButton mDeleteItemImgBtn;
         private TextView mWhatTextView;
         private TextView mWhereTextView;
@@ -104,7 +102,7 @@ public class ListFragment extends Fragment implements Observer {
 
         //Binds the item, providing a positional number, what and where for the TextViews.
         public void bind(Item item, int position) {
-            mNoView.setText(" " + (position+1) + " "); //Want to display positions starting from 1 upwards, not 0 upwards.
+            mNoView.setText(" " + (position + 1) + " ");
             mWhatTextView.setText(item.getWhat());
             mWhereTextView.setText(item.getWhere());
         }
@@ -146,8 +144,6 @@ public class ListFragment extends Fragment implements Observer {
         public void onBindViewHolder(@NonNull ItemHolder holder, final int position) {
             final Item item = mItems.get(position);
             holder.bind(item, position);
-
-            //Removed all the old code for deleting items from here, now in ItemHolder.OnClick().
         }
 
         //Accepts a List of Item objects and sets them into the database.
@@ -160,8 +156,6 @@ public class ListFragment extends Fragment implements Observer {
         public int getItemCount() {
             return mItems.size();
         }
-
     }
-
 }
 //END OF LINE//------------------------------------------------------------------------------------

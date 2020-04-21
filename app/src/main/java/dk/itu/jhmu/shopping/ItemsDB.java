@@ -10,11 +10,10 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Observable;
 
-//VERSION 7.1//------------------------------------------------------------------------------------
-/* VERSION NOTES: Implementing SQL Lite Database!
+//VERSION 7.1.1//----------------------------------------------------------------------------------
+/* VERSION NOTES: Minor code cleanup.
  * @author John Henrik Muller
  */
 //-------------------------------------------------------------------------------------------------
@@ -105,37 +104,5 @@ class ItemsDB extends Observable {
         notifyObservers();
     }
 
-    //On the other hand, I am losing a lot of functionality, will have to decide if I want to re-implement
-    //some of these delete methods.
-    /*
-    //Deletes the most recent item added to the database.
-    //Doesn't check if the database isn't already empty. Use at your own risk.
-    void deleteLastItem() throws NullPointerException {
-        itemsDBList.remove(itemsDBList.size()-1);
-        this.setChanged();
-        notifyObservers();
-    }
-
-    //Deletes all items in the database.
-    void deleteAllItems() {
-        itemsDBList.clear();
-        this.setChanged();
-        notifyObservers();
-    }
-
-    //Returns true if there are no more items in the List.
-    boolean isEmpty() {
-        return itemsDBList.isEmpty();
-    }
-
-    //Lists all items currently in the Database.
-    String listItems() {
-        String r = "";
-        for (int i = 0; i< itemsDBList.size(); i++) {
-            r += "\n Buy " + itemsDBList.get(i).toString();
-        }
-        return r;
-    }
-    */
 }
 //END OF LINE//------------------------------------------------------------------------------------
