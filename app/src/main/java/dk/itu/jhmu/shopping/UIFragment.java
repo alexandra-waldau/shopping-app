@@ -11,8 +11,8 @@ import android.widget.EditText;
 import android.widget.Toast;
 import androidx.fragment.app.Fragment;
 
-//VERSION 6.3//------------------------------------------------------------------------------------
-/* VERSION NOTES: Visual improvements to RecyclerView and code cleanup.
+//VERSION 7.0//------------------------------------------------------------------------------------
+/* VERSION NOTES: Adding SQL Lite Database! Constraint layouts! And more...
  * @author John Henrik Muller
  */
 //-------------------------------------------------------------------------------------------------

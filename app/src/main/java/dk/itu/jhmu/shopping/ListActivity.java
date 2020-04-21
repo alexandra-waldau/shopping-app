@@ -5,8 +5,8 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import android.os.Bundle;
 
-//VERSION 6.3//------------------------------------------------------------------------------------
-/* VERSION NOTES: Visual improvements to RecyclerView and code cleanup.
+//VERSION 7.0//------------------------------------------------------------------------------------
+/* VERSION NOTES: Adding SQL Lite Database! Constraint layouts! And more...
  * @author John Henrik Muller
  */
 //-------------------------------------------------------------------------------------------------

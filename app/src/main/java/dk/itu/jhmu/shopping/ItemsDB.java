@@ -6,8 +6,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Observable;
 
-//VERSION 6.3//------------------------------------------------------------------------------------
-/* VERSION NOTES: Visual improvements to RecyclerView and code cleanup.
+//VERSION 7.0//------------------------------------------------------------------------------------
+/* VERSION NOTES: Adding SQL Lite Database! Constraint layouts! And more...
  * @author John Henrik Muller
  */
 //-------------------------------------------------------------------------------------------------
