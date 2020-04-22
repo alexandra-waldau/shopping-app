@@ -11,9 +11,10 @@ import android.widget.EditText;
 import android.widget.Toast;
 import androidx.fragment.app.Fragment;
 
-//VERSION 7.1.1//----------------------------------------------------------------------------------
-/* VERSION NOTES: Minor code cleanup.
+//VERSION 8.0//------------------------------------------------------------------------------------
+/* VERSION NOTES: Moving on to the final project!
  * @author John Henrik Muller
+ * @author Alexandra Waldau
  */
 //-------------------------------------------------------------------------------------------------
 

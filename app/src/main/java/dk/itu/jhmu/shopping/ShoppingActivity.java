@@ -7,9 +7,10 @@ import androidx.fragment.app.FragmentManager;
 import android.content.res.Configuration;
 import android.os.Bundle;
 
-//VERSION 7.1.1//----------------------------------------------------------------------------------
-/* VERSION NOTES: Minor code cleanup.
+//VERSION 8.0//------------------------------------------------------------------------------------
+/* VERSION NOTES: Moving on to the final project!
  * @author John Henrik Muller
+ * @author Alexandra Waldau
  */
 //-------------------------------------------------------------------------------------------------
 
