@@ -1,6 +1,6 @@
 <resources>
-    <string name="app_name">Shopping</string>
-    <string name="app_title">Shopping V7</string>
+    <string name="app_name">Ultimate Shopping</string>
+    <string name="app_title">Ultimate Shopping</string>
 
     <string name="listItemsBtn_name">List All Items</string>
     <string name="addItemBtn_name">Add Item</string>
