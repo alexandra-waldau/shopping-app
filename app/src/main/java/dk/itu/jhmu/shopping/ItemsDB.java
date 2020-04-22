@@ -12,7 +12,7 @@ import android.database.sqlite.SQLiteDatabase;
 import java.util.ArrayList;
 import java.util.Observable;
 
-//VERSION 7.1.1//----------------------------------------------------------------------------------
+//VERSION 8.1//----------------------------------------------------------------------------------
 /* VERSION NOTES: Minor code cleanup.
  * @author John Henrik Muller
  */
