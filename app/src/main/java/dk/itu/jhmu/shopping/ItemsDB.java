@@ -12,8 +12,8 @@ import android.database.sqlite.SQLiteDatabase;
 import java.util.ArrayList;
 import java.util.Observable;
 
-//VERSION 8.0//------------------------------------------------------------------------------------
-/* VERSION NOTES: Moving on to the final project!
+//VERSION 8.1//------------------------------------------------------------------------------------
+/* VERSION NOTES: Toolbar! Item counts, and a back button!
  * @author John Henrik Muller
  * @author Alexandra Waldau
  */
@@ -41,7 +41,6 @@ class ItemsDB extends Observable {
     //METHODS//------------------------------------------------------------------------------------
 
     //Singleton method to return the current itemsDBList. Used when switching activities.
-    //Little more complicated now with some SQL Lite Database stuff going on...
     public static ItemsDB get(Context context) {
         if (sItemsDB == null) {
             mDatabase= new ItemBaseHelper(context.getApplicationContext())
@@ -62,6 +61,12 @@ class ItemsDB extends Observable {
         }
         cursor.close();
         return items;
+    }
+
+    //Returns a count of all the items in the database.
+    public int getItemCount() {
+        ArrayList<Item> items = getItemsDB();
+        return items.size();
     }
 
     //Allows you to query the database for Items... I think. :P
@@ -96,7 +101,6 @@ class ItemsDB extends Observable {
     }
 
     //Given a string naming the item, removes that item from the database.
-    //This new implementation means I don't have to worry about my previous problems with this method.
     public void deleteItem(String what) {
         String whereclause = ItemsDbSchema.ItemTable.Cols.WHAT + "=?";
         String whereArgs[] = {what};

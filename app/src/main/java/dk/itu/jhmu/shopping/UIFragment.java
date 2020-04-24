@@ -11,8 +11,8 @@ import android.widget.EditText;
 import android.widget.Toast;
 import androidx.fragment.app.Fragment;
 
-//VERSION 8.0//------------------------------------------------------------------------------------
-/* VERSION NOTES: Moving on to the final project!
+//VERSION 8.1//------------------------------------------------------------------------------------
+/* VERSION NOTES: Toolbar! Item counts, and a back button!
  * @author John Henrik Muller
  * @author Alexandra Waldau
  */

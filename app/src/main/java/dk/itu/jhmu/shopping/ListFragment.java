@@ -1,12 +1,16 @@
 package dk.itu.jhmu.shopping;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
@@ -16,8 +20,8 @@ import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
 
-//VERSION 8.0//------------------------------------------------------------------------------------
-/* VERSION NOTES: Moving on to the final project!
+//VERSION 8.1//------------------------------------------------------------------------------------
+/* VERSION NOTES: Toolbar! Item counts, and a back button!
  * @author John Henrik Muller
  * @author Alexandra Waldau
  */
@@ -31,6 +35,10 @@ public class ListFragment extends Fragment implements Observer {
     private ItemAdapter mAdapter;
     private ItemsDB itemsDB;
 
+    //These fields are used for the subtitle.
+    private boolean mSubtitleVisible;
+    private static final String SAVED_SUBSTITUTE_VISIBLE = "subtitle";
+
     //MAIN METHOD//--------------------------------------------------------------------------------
 
     @Override
@@ -38,6 +46,7 @@ public class ListFragment extends Fragment implements Observer {
         super.onCreate(savedInstanceState);
         itemsDB = ItemsDB.get(getContext());
         itemsDB.addObserver(this);
+        setHasOptionsMenu(true);
     }
 
     @Override
@@ -49,8 +58,64 @@ public class ListFragment extends Fragment implements Observer {
         mListRecyclerView = (RecyclerView) v.findViewById(R.id.list_recycler_view);
         mListRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
+        //Used to check what the status of the shown subtitle is.
+        if (savedInstanceState != null) {
+            mSubtitleVisible = savedInstanceState.getBoolean(SAVED_SUBSTITUTE_VISIBLE);
+        }
+
         updateUI();
         return v;
+    }
+
+    //This method initializes and inflates our toolbar.
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
+        inflater.inflate(R.menu.fragment_toolbar_menu, menu);
+
+        MenuItem subtitleItem = menu.findItem(R.id.show_subtitle);
+        if (mSubtitleVisible) {
+            subtitleItem.setTitle(R.string.hide_subtitle);
+        } else {
+            subtitleItem.setTitle(R.string.show_subtitle);
+        }
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch(item.getItemId()) {
+            case R.id.show_subtitle:
+                mSubtitleVisible = !mSubtitleVisible;
+                getActivity().invalidateOptionsMenu();
+                updateSubtitle();
+                return true;
+
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putBoolean(SAVED_SUBSTITUTE_VISIBLE, mSubtitleVisible);
+    }
+
+    //This method updates the current item count in the toolbar.
+    public void updateSubtitle() {
+        itemsDB = ItemsDB.get(getContext());
+        int itemCount = itemsDB.getItemCount();
+
+        if (isAdded()) {
+            String subtitle = getActivity().getResources().getQuantityString(R.plurals.subtitle_plural, itemCount, itemCount);
+
+            if (!mSubtitleVisible) {
+                subtitle = null;
+            }
+
+            AppCompatActivity activity = (AppCompatActivity) getActivity();
+            activity.getSupportActionBar().setSubtitle(subtitle);
+        }
     }
 
     //HELPER METHODS//-----------------------------------------------------------------------------
@@ -65,6 +130,8 @@ public class ListFragment extends Fragment implements Observer {
             mAdapter.setItems(items);
             mAdapter.notifyDataSetChanged();
         }
+
+        updateSubtitle();
     }
 
     //Updates the Adapter as well as the UI.

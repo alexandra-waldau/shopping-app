@@ -1,6 +1,6 @@
 package dk.itu.jhmu.shopping;
 
-//VERSION 8.0//------------------------------------------------------------------------------------
+//VERSION 8.1//------------------------------------------------------------------------------------
 /* VERSION NOTES: Moving on to the final project!
  * @author John Henrik Muller
  * @author Alexandra Waldau
