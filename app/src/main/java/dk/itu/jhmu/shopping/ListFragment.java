@@ -20,8 +20,8 @@ import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
 
-//VERSION 8.1//------------------------------------------------------------------------------------
-/* VERSION NOTES: Toolbar! Item counts, and a back button!
+//VERSION 8.3//------------------------------------------------------------------------------------
+/* VERSION NOTES: More functionality for the toolbar on the ListFragment.
  * @author John Henrik Muller
  * @author Alexandra Waldau
  */
@@ -86,6 +86,8 @@ public class ListFragment extends Fragment implements Observer {
 
         //This is for the share list action.
         MenuItem shareItem = menu.findItem(R.id.share_list);
+
+        MenuItem addItem = menu.findItem(R.id.add_items);
     }
 
     //This is the code that actually gets run when you click on an item in the toolbar.
@@ -101,10 +103,16 @@ public class ListFragment extends Fragment implements Observer {
             case R.id.delete_all: //Code for delete all items.
                 itemsDB.deleteAllItems();
                 return true;
+
+            case R.id.add_items: //Developer function to add 5 items at a time.
+                itemsDB.batchAddItems();
+                return true;
+
                 /*
             case R.id.share_list: //Code for sharing a list of items.
                 return true;
                 */
+
             default:
                 return super.onOptionsItemSelected(item);
         }

@@ -12,8 +12,8 @@ import android.database.sqlite.SQLiteDatabase;
 import java.util.ArrayList;
 import java.util.Observable;
 
-//VERSION 8.1//------------------------------------------------------------------------------------
-/* VERSION NOTES: Toolbar! Item counts, and a back button!
+//VERSION 8.3//------------------------------------------------------------------------------------
+/* VERSION NOTES: More functionality for the toolbar on the ListFragment.
  * @author John Henrik Muller
  * @author Alexandra Waldau
  */
@@ -23,20 +23,11 @@ import java.util.Observable;
 class ItemsDB extends Observable {
     //FIELDS//-------------------------------------------------------------------------------------
 
-    //private List<Item> itemsDBList;
     private static ItemsDB sItemsDB;
     private static SQLiteDatabase mDatabase;
 
     //CONSTRUCTOR//--------------------------------------------------------------------------------
-    private ItemsDB(Context context) {
-        if (getItemsDB().size() == 0) { //Throwing some items in for testing.
-            addItem("Bananas", "Irma");
-            addItem("Oreos", "Netto");
-            addItem("Milk", "Fotex");
-            addItem("Bread", "Rema1000");
-            addItem("Sugar", "Aldi");
-        }
-    }
+    private ItemsDB(Context context) { }
 
     //METHODS//------------------------------------------------------------------------------------
 
@@ -102,9 +93,9 @@ class ItemsDB extends Observable {
 
     //Given a string naming the item, removes that item from the database.
     public void deleteItem(String what) {
-        String whereclause = ItemsDbSchema.ItemTable.Cols.WHAT + "=?";
+        String whereClause = ItemsDbSchema.ItemTable.Cols.WHAT + "=?";
         String whereArgs[] = {what};
-        mDatabase.delete(ItemsDbSchema.ItemTable.NAME, whereclause, whereArgs);
+        mDatabase.delete(ItemsDbSchema.ItemTable.NAME, whereClause, whereArgs);
         this.setChanged();
         notifyObservers();
     }
@@ -116,6 +107,15 @@ class ItemsDB extends Observable {
         mDatabase.delete(ItemsDbSchema.ItemTable.NAME, null, null);
         this.setChanged();
         notifyObservers();
+    }
+
+    //Simple method to add a bunch of items for the purposes of testing.
+    public void batchAddItems() {
+        addItem("Bananas", "Irma");
+        addItem("Oreos", "Netto");
+        addItem("Milk", "Fotex");
+        addItem("Bread", "Rema1000");
+        addItem("Sugar", "Aldi");
     }
 
 }

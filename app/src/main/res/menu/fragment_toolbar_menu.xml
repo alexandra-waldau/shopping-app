@@ -17,4 +17,9 @@
         android:title="@string/share_list"
         app:showAsAction="never" />
 
+    <item
+        android:id="@+id/add_items"
+        android:title="@string/add_items"
+        app:showAsAction="never" />
+
 </menu>
