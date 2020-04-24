@@ -12,8 +12,8 @@ import android.database.sqlite.SQLiteDatabase;
 import java.util.ArrayList;
 import java.util.Observable;
 
-//VERSION 8.4//------------------------------------------------------------------------------------
-/* VERSION NOTES: More functionality for the toolbar on the ListFragment.
+//VERSION 8.5//------------------------------------------------------------------------------------
+/* VERSION NOTES: TextView item counter added!
  * @author John Henrik Muller
  * @author Alexandra Waldau
  */
@@ -94,6 +94,9 @@ class ItemsDB extends Observable {
     }
 
     //Given a string naming the item, removes that item from the database.
+    //BUG: THIS WILL DELETE TWO OR MORE ITEMS WHICH HAPPEN TO HAVE THE SAME NAME.
+    //While it's hard to imagine a scenario where you'd list the same grocery twice,
+    //this is hardly the intended functionality.
     public void deleteItem(String what) {
         String whereClause = ItemsDbSchema.ItemTable.Cols.WHAT + "=?";
         String whereArgs[] = {what};
@@ -111,7 +114,7 @@ class ItemsDB extends Observable {
         notifyObservers();
     }
 
-    //Simple method to add a bunch of items for the purposes of testing.
+    //Populates the database with a bunch of items for the purposes of testing.
     public void batchAddItems() {
         addItem("Bananas", "Irma");
         addItem("Oreos", "Netto");
@@ -119,6 +122,5 @@ class ItemsDB extends Observable {
         addItem("Bread", "Rema1000");
         addItem("Sugar", "Aldi");
     }
-
 }
 //END OF LINE//------------------------------------------------------------------------------------

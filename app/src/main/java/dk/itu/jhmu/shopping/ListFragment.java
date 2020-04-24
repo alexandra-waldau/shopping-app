@@ -22,8 +22,8 @@ import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
 
-//VERSION 8.4//------------------------------------------------------------------------------------
-/* VERSION NOTES: More functionality for the toolbar on the ListFragment.
+//VERSION 8.5//------------------------------------------------------------------------------------
+/* VERSION NOTES: TextView item counter added!
  * @author John Henrik Muller
  * @author Alexandra Waldau
  */
@@ -36,6 +36,7 @@ public class ListFragment extends Fragment implements Observer {
     private RecyclerView mListRecyclerView;
     private ItemAdapter mAdapter;
     private ItemsDB itemsDB;
+    private TextView itemCountTextView;
 
     //These fields are used for the subtitle.
     private boolean mSubtitleVisible;
@@ -59,6 +60,8 @@ public class ListFragment extends Fragment implements Observer {
         //This creates the recycler view and attaches it to our variable.
         mListRecyclerView = (RecyclerView) v.findViewById(R.id.list_recycler_view);
         mListRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+
+        itemCountTextView = (TextView) v.findViewById(R.id.itemCount_TextView);
 
         //Used to check what the status of the item counter is.
         if (savedInstanceState != null) {
@@ -178,6 +181,7 @@ public class ListFragment extends Fragment implements Observer {
             mAdapter.notifyDataSetChanged();
         }
 
+        updateItemCount();
         updateSubtitle();
     }
 
@@ -185,6 +189,16 @@ public class ListFragment extends Fragment implements Observer {
     public void update(Observable observable, Object data) {
         mAdapter.notifyDataSetChanged();
         updateUI();
+    }
+
+    //This updates the itemCount TextView.
+    public void updateItemCount() {
+        int itemCount = itemsDB.getItemCount();
+
+        //This long piece of code basically allows us to use our plural Strings to append the right word (item/items) to the count.
+        String items = getActivity().getResources().getQuantityString(R.plurals.subtitle_plural, itemCount, itemCount);
+
+        itemCountTextView.setText(items);
     }
 
     //INNER CLASS//================================================================================
