@@ -20,4 +20,8 @@
 
     <string name="what_list">What</string>
     <string name="where_list">Where</string>
+
+    <string name="ok_button">Ok</string>
+    <string name="cancel_button">Cancel</string>
+    <string name="add_button">Add</string>
 </resources>

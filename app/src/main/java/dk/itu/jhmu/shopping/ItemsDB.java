@@ -1,8 +1,8 @@
 package dk.itu.jhmu.shopping;
 
-import dk.itu.jhmu.shopping.database.ItemBaseHelper;
-import dk.itu.jhmu.shopping.database.ItemCursorWrapper;
-import dk.itu.jhmu.shopping.database.ItemsDbSchema;
+import dk.itu.jhmu.shopping.database.ShoppingBaseHelper;
+import dk.itu.jhmu.shopping.database.ShoppingCursorWrapper;
+import dk.itu.jhmu.shopping.database.ShoppingDbSchema;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -28,23 +28,15 @@ class ItemsDB extends Observable {
 
     //CONSTRUCTOR//--------------------------------------------------------------------------------
     private ItemsDB(Context context) {
-        if (getItemsDB().size() == 0) { //Throwing some items in for testing.
-            addItem("Bananas", "Irma");
-            addItem("Oreos", "Netto");
-            addItem("Milk", "Fotex");
-            addItem("Bread", "Rema1000");
-            addItem("Sugar", "Aldi");
-        }
+        mDatabase = ShoppingBaseHelper.getHelper(context.getApplicationContext())
+                .getWritableDatabase();
     }
 
     //METHODS//------------------------------------------------------------------------------------
 
     //Singleton method to return the current itemsDBList. Used when switching activities.
-    //Little more complicated now with some SQL Lite Database stuff going on...
     public static ItemsDB get(Context context) {
         if (sItemsDB == null) {
-            mDatabase= new ItemBaseHelper(context.getApplicationContext())
-                    .getWritableDatabase();
             sItemsDB= new ItemsDB(context);
         }
         return sItemsDB;
@@ -53,7 +45,7 @@ class ItemsDB extends Observable {
     //Returns an ArrayList of items that are stored in the database.
     public ArrayList<Item> getItemsDB() {
         ArrayList<Item> items = new ArrayList<Item>();
-        ItemCursorWrapper cursor = queryItems(null, null);
+        ShoppingCursorWrapper cursor = queryItems(null, null);
         cursor.moveToFirst();
         while (!cursor.isAfterLast()) {
             items.add(cursor.getItem());
@@ -64,23 +56,23 @@ class ItemsDB extends Observable {
     }
 
     //Allows you to query the database for Items... I think. :P
-    private static ItemCursorWrapper queryItems(String whereClause, String[] whereArgs) {
+    private static ShoppingCursorWrapper queryItems(String whereClause, String[] whereArgs) {
         Cursor cursor = mDatabase.query(
-                ItemsDbSchema.ItemTable.NAME,
+                ShoppingDbSchema.ItemTable.NAME,
                 null, //Columns - null selects all columns
                 whereClause, whereArgs,
                 null, //GroupBy
                 null, //Having
                 null //OrderBy
         );
-        return new ItemCursorWrapper(cursor);
+        return new ShoppingCursorWrapper(cursor);
     }
 
     //Given a specific item, returns the content values of that item.
     private static ContentValues getContentValues(Item item) {
         ContentValues values = new ContentValues();
-        values.put(ItemsDbSchema.ItemTable.Cols.WHAT, item.getWhat());
-        values.put(ItemsDbSchema.ItemTable.Cols.WHERE, item.getWhere());
+        values.put(ShoppingDbSchema.ItemTable.Cols.WHAT, item.getWhat());
+        values.put(ShoppingDbSchema.ItemTable.Cols.WHERE, item.getWhere());
         return values;
     }
 
@@ -89,7 +81,7 @@ class ItemsDB extends Observable {
     void addItem(String what, String where){
         Item newItem = new Item(what, where);
         ContentValues values = getContentValues(newItem);
-        mDatabase.insert(ItemsDbSchema.ItemTable.NAME, null, values);
+        mDatabase.insert(ShoppingDbSchema.ItemTable.NAME, null, values);
         this.setChanged();
         notifyObservers();
     }
@@ -97,9 +89,9 @@ class ItemsDB extends Observable {
     //Given a string naming the item, removes that item from the database.
     //This new implementation means I don't have to worry about my previous problems with this method.
     public void deleteItem(String what) {
-        String whereclause = ItemsDbSchema.ItemTable.Cols.WHAT + "=?";
+        String whereclause = ShoppingDbSchema.ItemTable.Cols.WHAT + "=?";
         String whereArgs[] = {what};
-        mDatabase.delete(ItemsDbSchema.ItemTable.NAME, whereclause, whereArgs);
+        mDatabase.delete(ShoppingDbSchema.ItemTable.NAME, whereclause, whereArgs);
         this.setChanged();
         notifyObservers();
     }

@@ -53,7 +53,8 @@
             android:paddingLeft="10dp"
             android:hint="@string/whereTextView"
             android:imeOptions="actionDone"
-            android:inputType="textAutoCorrect" />
+            android:inputType="textAutoCorrect"
+            android:focusableInTouchMode="false"/>
     </LinearLayout>
 
     <!-- Button to Add a new Item -->
