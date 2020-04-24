@@ -12,7 +12,7 @@ import android.database.sqlite.SQLiteDatabase;
 import java.util.ArrayList;
 import java.util.Observable;
 
-//VERSION 8.3//------------------------------------------------------------------------------------
+//VERSION 8.4//------------------------------------------------------------------------------------
 /* VERSION NOTES: More functionality for the toolbar on the ListFragment.
  * @author John Henrik Muller
  * @author Alexandra Waldau
@@ -46,10 +46,12 @@ class ItemsDB extends Observable {
         ArrayList<Item> items = new ArrayList<Item>();
         ItemCursorWrapper cursor = queryItems(null, null);
         cursor.moveToFirst();
+
         while (!cursor.isAfterLast()) {
             items.add(cursor.getItem());
             cursor.moveToNext();
         }
+
         cursor.close();
         return items;
     }

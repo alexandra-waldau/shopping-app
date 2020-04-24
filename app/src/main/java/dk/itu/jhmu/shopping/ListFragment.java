@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -16,11 +17,12 @@ import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
 
-//VERSION 8.3//------------------------------------------------------------------------------------
+//VERSION 8.4//------------------------------------------------------------------------------------
 /* VERSION NOTES: More functionality for the toolbar on the ListFragment.
  * @author John Henrik Muller
  * @author Alexandra Waldau
@@ -81,13 +83,9 @@ public class ListFragment extends Fragment implements Observer {
             subtitleItem.setTitle(R.string.show_subtitle);
         }
 
-        //This is for the delete all action.
-        MenuItem deleteItem = menu.findItem(R.id.delete_all);
-
-        //This is for the share list action.
-        MenuItem shareItem = menu.findItem(R.id.share_list);
-
-        MenuItem addItem = menu.findItem(R.id.add_items);
+        MenuItem deleteItem = menu.findItem(R.id.delete_all); //This is for the delete all action.
+        MenuItem shareItem = menu.findItem(R.id.share_list); //This is for the share list action.
+        MenuItem addItem = menu.findItem(R.id.add_items); //This is for the batch add items action.
     }
 
     //This is the code that actually gets run when you click on an item in the toolbar.
@@ -100,24 +98,33 @@ public class ListFragment extends Fragment implements Observer {
                 updateSubtitle();
                 return true;
 
-            case R.id.delete_all: //Code for delete all items.
+            //Function to delete all items.
+            case R.id.delete_all:
                 itemsDB.deleteAllItems();
                 return true;
 
-            case R.id.add_items: //Developer function to add 5 items at a time.
+            //Developer function to add 5 items at a time.
+            case R.id.add_items:
                 itemsDB.batchAddItems();
                 return true;
 
-                /*
-            case R.id.share_list: //Code for sharing a list of items.
+            //No fucking idea if this will work. WAY different than the book.
+            //This code implements the share list fuction.
+            case R.id.share_list:
+                Intent i = new Intent(Intent.ACTION_SEND);
+                i.setType("text/plain");
+                i.putExtra(Intent.EXTRA_TEXT, getListReport());
+                i.putExtra(Intent.EXTRA_SUBJECT, getString(R.string.list_report_subject));
+                i = Intent.createChooser(i,getString(R.string.send_report));
+                startActivity(i);
                 return true;
-                */
 
             default:
                 return super.onOptionsItemSelected(item);
         }
     }
 
+    //No idea what this does.
     @Override
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
@@ -140,6 +147,23 @@ public class ListFragment extends Fragment implements Observer {
             activity.getSupportActionBar().setSubtitle(subtitle);
         }
     }
+
+    //This method builds a string out of our database to send through an Implicit Intent to another app.
+    private String getListReport() {
+        int itemCount = itemsDB.getItemCount();
+        ArrayList<Item> itemsArray = itemsDB.getItemsDB();
+
+        String itemList = "";
+        //This isn't exactly a sexy way of doing it, but it works. :P
+        for(Item item: itemsArray) {
+            itemList += item.getWhat() + " from " + item.getWhere() + ".\n";
+        }
+
+        String listReport = "You need " + itemCount + " items: \n" + itemList;
+        return listReport;
+    }
+
+
 
     //HELPER METHODS//-----------------------------------------------------------------------------
 

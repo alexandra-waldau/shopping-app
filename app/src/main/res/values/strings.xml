@@ -33,4 +33,9 @@
         <item quantity="other">%1$d items</item>
     </plurals>
 
+    <!-- Our report strings, used for Share Item List -->
+    <string name="list_report">%1$! The shopping list contains these items:
+        %2$.</string>
+    <string name="list_report_subject">Ultimate Shopping List Report</string>
+    <string name="send_report">Send list via</string>
 </resources>
