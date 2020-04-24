@@ -25,8 +25,8 @@
     <string name="add_item">Add Item</string>
     <string name="show_subtitle">Show Count</string>
     <string name="hide_subtitle">Hide Count</string>
-    <string name="subtitle_format">%1$d items</string>
-
+    <string name="delete_all">Delete All</string>
+    <string name="share_list">Share List</string>
     <plurals name="subtitle_plural">
         <item quantity="one">%1$d item</item>
         <item quantity="other">%1$d items</item>

@@ -58,7 +58,7 @@ public class ListFragment extends Fragment implements Observer {
         mListRecyclerView = (RecyclerView) v.findViewById(R.id.list_recycler_view);
         mListRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
-        //Used to check what the status of the shown subtitle is.
+        //Used to check what the status of the item counter is.
         if (savedInstanceState != null) {
             mSubtitleVisible = savedInstanceState.getBoolean(SAVED_SUBSTITUTE_VISIBLE);
         }
@@ -67,29 +67,44 @@ public class ListFragment extends Fragment implements Observer {
         return v;
     }
 
-    //This method initializes and inflates our toolbar.
+    //This method initializes and inflates our toolbar, and the actions (items) it contains.
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
         inflater.inflate(R.menu.fragment_toolbar_menu, menu);
 
+        //This manages our show item count action.
         MenuItem subtitleItem = menu.findItem(R.id.show_subtitle);
         if (mSubtitleVisible) {
             subtitleItem.setTitle(R.string.hide_subtitle);
         } else {
             subtitleItem.setTitle(R.string.show_subtitle);
         }
+
+        //This is for the delete all action.
+        MenuItem deleteItem = menu.findItem(R.id.delete_all);
+
+        //This is for the share list action.
+        MenuItem shareItem = menu.findItem(R.id.share_list);
     }
 
+    //This is the code that actually gets run when you click on an item in the toolbar.
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch(item.getItemId()) {
-            case R.id.show_subtitle:
+            case R.id.show_subtitle: //Code for show item count.
                 mSubtitleVisible = !mSubtitleVisible;
                 getActivity().invalidateOptionsMenu();
                 updateSubtitle();
                 return true;
 
+            case R.id.delete_all: //Code for delete all items.
+                itemsDB.deleteAllItems();
+                return true;
+                /*
+            case R.id.share_list: //Code for sharing a list of items.
+                return true;
+                */
             default:
                 return super.onOptionsItemSelected(item);
         }
@@ -103,7 +118,7 @@ public class ListFragment extends Fragment implements Observer {
 
     //This method updates the current item count in the toolbar.
     public void updateSubtitle() {
-        itemsDB = ItemsDB.get(getContext());
+        //itemsDB = ItemsDB.get(getContext());
         int itemCount = itemsDB.getItemCount();
 
         if (isAdded()) {

@@ -109,5 +109,14 @@ class ItemsDB extends Observable {
         notifyObservers();
     }
 
+    //Removes all items from the database.
+    //Does not delete the table, simply deletes all rows currently on it.
+    public void deleteAllItems() {
+        //Passing two null values into the where clauses will clear the table.
+        mDatabase.delete(ItemsDbSchema.ItemTable.NAME, null, null);
+        this.setChanged();
+        notifyObservers();
+    }
+
 }
 //END OF LINE//------------------------------------------------------------------------------------
