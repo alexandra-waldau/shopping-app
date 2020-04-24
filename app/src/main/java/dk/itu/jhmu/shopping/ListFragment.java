@@ -16,9 +16,9 @@ import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
 
-//VERSION 7.1.1//----------------------------------------------------------------------------------
-/* VERSION NOTES: Minor code cleanup.
- * @author John Henrik Muller
+//VERSION 8.1//----------------------------------------------------------------------------------
+/* VERSION NOTES: Dialog boxes introduced.
+ * @author John Henrik Muller, Alexandra Waldau
  */
 //-------------------------------------------------------------------------------------------------
 

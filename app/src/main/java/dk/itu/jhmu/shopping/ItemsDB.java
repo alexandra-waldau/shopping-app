@@ -13,8 +13,8 @@ import java.util.ArrayList;
 import java.util.Observable;
 
 //VERSION 8.1//----------------------------------------------------------------------------------
-/* VERSION NOTES: Minor code cleanup.
- * @author John Henrik Muller
+/* VERSION NOTES: Dialog boxes introduced.
+ * @author John Henrik Muller, Alexandra Waldau
  */
 //-------------------------------------------------------------------------------------------------
 
