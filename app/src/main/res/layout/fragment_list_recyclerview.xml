@@ -1,8 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<androidx.recyclerview.widget.RecyclerView xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#008577"
+    android:gravity="center"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/itemCount_TextView"
+        android:layout_height="40dp"
+        android:layout_width="match_parent"
+        android:textAlignment="gravity"
+        android:layout_margin="10dp"
+        android:gravity="right"
+        android:padding="5dp"
+        android:textColor="#FFFFFF"
+        android:textSize="20dp"
+        android:text="" />
+
+    <androidx.recyclerview.widget.RecyclerView xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/list_recycler_view"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#008577"/>
 
+</LinearLayout>

@@ -7,9 +7,10 @@ import androidx.fragment.app.FragmentManager;
 import android.content.res.Configuration;
 import android.os.Bundle;
 
-//VERSION 8.1//----------------------------------------------------------------------------------
-/* VERSION NOTES: Dialog boxes introduced.
- * @author John Henrik Muller, Alexandra Waldau
+//VERSION 8.1//------------------------------------------------------------------------------------
+/* VERSION NOTES: Toolbar! Item counts, and a back button!
+ * @author John Henrik Muller
+ * @author Alexandra Waldau
  */
 //-------------------------------------------------------------------------------------------------
 

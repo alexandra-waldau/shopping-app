@@ -15,9 +15,10 @@ import android.widget.Toast;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
-//VERSION 8.1//----------------------------------------------------------------------------------
-/* VERSION NOTES: Dialog boxes introduced.
- * @author John Henrik Muller, Alexandra Waldau
+//VERSION 8.1//------------------------------------------------------------------------------------
+/* VERSION NOTES: Toolbar! Item counts, and a back button!
+ * @author John Henrik Muller
+ * @author Alexandra Waldau
  */
 //-------------------------------------------------------------------------------------------------
 

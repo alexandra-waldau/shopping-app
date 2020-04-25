@@ -24,4 +24,23 @@
     <string name="ok_button">Ok</string>
     <string name="cancel_button">Cancel</string>
     <string name="add_button">Add</string>
+
+    <!-- Strings for the toolbar -->
+    <string name="add_item">Add Item</string>
+    <string name="show_subtitle">Show Count</string>
+    <string name="hide_subtitle">Hide Count</string>
+    <string name="delete_all">Clear List</string>
+    <string name="share_list">Share List</string>
+    <string name="add_items">DEV: Add Items</string>
+
+    <plurals name="subtitle_plural">
+        <item quantity="one">%1$d item</item>
+        <item quantity="other">%1$d items</item>
+    </plurals>
+
+    <!-- Our report strings, used for Share Item List -->
+    <string name="list_report">%1$! The shopping list contains these items:
+        %2$.</string>
+    <string name="list_report_subject">Ultimate Shopping List Report</string>
+    <string name="send_report">Send list via</string>
 </resources>

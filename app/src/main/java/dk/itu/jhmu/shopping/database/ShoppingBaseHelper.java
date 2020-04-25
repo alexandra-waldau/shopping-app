@@ -31,7 +31,8 @@ public class ShoppingBaseHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         db.execSQL("create table " + ItemTable.NAME + "(" +
-                ItemTable.Cols.WHAT + ", " + ItemTable.Cols.WHERE + ")"
+                ItemTable.Cols.WHAT + ", " +
+                ItemTable.Cols.WHERE + ")"
         );
         db.execSQL("create table " + ShopTable.NAME + "(" +
                 ShopTable.Cols.TITLE + " String primary key" + ")"
