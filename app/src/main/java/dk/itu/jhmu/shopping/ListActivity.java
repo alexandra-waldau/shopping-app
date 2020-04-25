@@ -5,12 +5,13 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import android.os.Bundle;
 
-//VERSION 8.0//------------------------------------------------------------------------------------
-/* VERSION NOTES: Moving on to the final project!
+//VERSION 8.1//------------------------------------------------------------------------------------
+/* VERSION NOTES: Toolbar! Item counts, and a back button!
  * @author John Henrik Muller
  * @author Alexandra Waldau
  */
 //-------------------------------------------------------------------------------------------------
+
 //CLASS HEADER//-----------------------------------------------------------------------------------
 public class ListActivity extends AppCompatActivity {
 

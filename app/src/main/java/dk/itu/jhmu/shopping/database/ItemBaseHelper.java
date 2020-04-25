@@ -21,7 +21,8 @@ public class ItemBaseHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         db.execSQL("create table " + ItemTable.NAME + "(" +
-                ItemTable.Cols.WHAT + ", " + ItemTable.Cols.WHERE + ")"
+                ItemTable.Cols.WHAT + ", " +
+                ItemTable.Cols.WHERE + ")"
         );
     }
 
