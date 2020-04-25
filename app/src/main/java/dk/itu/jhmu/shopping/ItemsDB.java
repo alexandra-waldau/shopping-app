@@ -64,7 +64,7 @@ class ItemsDB extends Observable {
         return items.size();
     }
 
-    //Allows you to query the database for Items... I think. :P
+    //Allows you to query the database for Items
     private static ShoppingCursorWrapper queryItems(String whereClause, String[] whereArgs) {
         Cursor cursor = mDatabase.query(
                 ShoppingDbSchema.ItemTable.NAME,
@@ -95,14 +95,13 @@ class ItemsDB extends Observable {
         notifyObservers();
     }
 
-    //Given a string naming the item, removes that item from the database.
-    //BUG: THIS WILL DELETE TWO OR MORE ITEMS WHICH HAPPEN TO HAVE THE SAME NAME.
-    //While it's hard to imagine a scenario where you'd list the same grocery twice,
-    //this is hardly the intended functionality.
-    public void deleteItem(String what) {
-        String whereclause = ShoppingDbSchema.ItemTable.Cols.WHAT + "=?";
-        String whereArgs[] = {what};
-        mDatabase.delete(ShoppingDbSchema.ItemTable.NAME, whereclause, whereArgs);
+    //Given the item name and shop, that item is removed from the database.
+    //Items with the same name but different shop are deleted separately
+    public void deleteItem(String what, String where) {
+        String whereClause = ShoppingDbSchema.ItemTable.Cols.WHAT + "=?" + "AND " +
+                ShoppingDbSchema.ItemTable.Cols.WHERE + "=?";
+        String whereArgs[] = {what, where};
+        mDatabase.delete(ShoppingDbSchema.ItemTable.NAME, whereClause, whereArgs);
         this.setChanged();
         notifyObservers();
     }
