@@ -86,9 +86,6 @@ public class ListFragment extends Fragment implements Observer {
             subtitleItem.setTitle(R.string.show_subtitle);
         }
 
-        MenuItem deleteItem = menu.findItem(R.id.delete_all); //This is for the delete all action.
-        MenuItem shareItem = menu.findItem(R.id.share_list); //This is for the share list action.
-        MenuItem addItem = menu.findItem(R.id.add_items); //This is for the batch add items action.
     }
 
     //This is the code that actually gets run when you click on an item in the toolbar.
@@ -111,14 +108,13 @@ public class ListFragment extends Fragment implements Observer {
                 itemsDB.batchAddItems();
                 return true;
 
-            //No fucking idea if this will work. WAY different than the book.
             //This code implements the share list fuction.
             case R.id.share_list:
                 Intent i = new Intent(Intent.ACTION_SEND);
                 i.setType("text/plain");
-                i.putExtra(Intent.EXTRA_TEXT, getListReport());
+                i.putExtra(Intent.EXTRA_TEXT, itemsDB.getListReport());
                 i.putExtra(Intent.EXTRA_SUBJECT, getString(R.string.list_report_subject));
-                i = Intent.createChooser(i,getString(R.string.send_report));
+                i = Intent.createChooser(i,getString(R.string.send_report)); //This allows us to choose every time.
                 startActivity(i);
                 return true;
 
@@ -127,7 +123,7 @@ public class ListFragment extends Fragment implements Observer {
         }
     }
 
-    //No idea what this does.
+    //This saves the state of the item counter beneath the toolbar header.
     @Override
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
@@ -136,7 +132,7 @@ public class ListFragment extends Fragment implements Observer {
 
     //This method updates the current item count in the toolbar.
     public void updateSubtitle() {
-        //itemsDB = ItemsDB.get(getContext());
+
         int itemCount = itemsDB.getItemCount();
 
         if (isAdded()) {
@@ -150,23 +146,6 @@ public class ListFragment extends Fragment implements Observer {
             activity.getSupportActionBar().setSubtitle(subtitle);
         }
     }
-
-    //This method builds a string out of our database to send through an Implicit Intent to another app.
-    private String getListReport() {
-        int itemCount = itemsDB.getItemCount();
-        ArrayList<Item> itemsArray = itemsDB.getItemsDB();
-
-        String itemList = "";
-        //This isn't exactly a sexy way of doing it, but it works. :P
-        for(Item item: itemsArray) {
-            itemList += item.getWhat() + " from " + item.getWhere() + ".\n";
-        }
-
-        String listReport = "You need " + itemCount + " items: \n" + itemList;
-        return listReport;
-    }
-
-
 
     //HELPER METHODS//-----------------------------------------------------------------------------
 

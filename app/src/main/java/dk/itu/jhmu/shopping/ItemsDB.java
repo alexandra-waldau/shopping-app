@@ -122,5 +122,20 @@ class ItemsDB extends Observable {
         addItem("Bread", "Rema1000");
         addItem("Sugar", "Aldi");
     }
+
+    //This method builds a string out of our database to send through an Implicit Intent to another app.
+    public String getListReport() {
+        int itemCount = sItemsDB.getItemCount();
+        ArrayList<Item> itemsArray = sItemsDB.getItemsDB();
+
+        String itemList = "";
+        //This isn't exactly a sexy way of doing it, but it works. :P
+        for(Item item: itemsArray) {
+            itemList += item.getWhat() + " from " + item.getWhere() + ".\n";
+        }
+
+        String listReport = "You need " + itemCount + " items: \n" + itemList;
+        return listReport;
+    }
 }
 //END OF LINE//------------------------------------------------------------------------------------
