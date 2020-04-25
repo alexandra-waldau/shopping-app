@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -37,6 +38,7 @@ public class ListFragment extends Fragment implements Observer {
     private ItemAdapter mAdapter;
     private ItemsDB itemsDB;
     private TextView itemCountTextView;
+    private Resources stringResources;
 
     //These fields are used for the subtitle.
     private boolean mSubtitleVisible;
@@ -49,6 +51,7 @@ public class ListFragment extends Fragment implements Observer {
         super.onCreate(savedInstanceState);
         itemsDB = ItemsDB.get(getContext());
         itemsDB.addObserver(this);
+        stringResources = getActivity().getResources();
         setHasOptionsMenu(true);
     }
 
@@ -175,7 +178,7 @@ public class ListFragment extends Fragment implements Observer {
         int itemCount = itemsDB.getItemCount();
 
         //This long piece of code basically allows us to use our plural Strings to append the right word (item/items) to the count.
-        String items = getActivity().getResources().getQuantityString(R.plurals.subtitle_plural, itemCount, itemCount);
+        String items = stringResources.getQuantityString(R.plurals.subtitle_plural, itemCount, itemCount);
 
         itemCountTextView.setText(items);
     }
