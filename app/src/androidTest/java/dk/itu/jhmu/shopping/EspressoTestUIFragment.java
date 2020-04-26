@@ -63,6 +63,21 @@ public class EspressoTestUIFragment {
     }
 
     @Test
+    public void ensureShopPickerOpens() {
+        onView(withId(R.id.whereEditText)).perform(click());
+        onView(withText("Choose a shop:")).check(matches(isDisplayed()));
+    }
+
+    @Test
+    public void ensureShopPickerSelects() {
+        onView(withId(R.id.whereEditText)).perform(click());
+        onView(withText("Irma")).perform(click());
+        onView(withText("Ok")).perform(click());
+
+        onView(withId(R.id.whereEditText)).check(matches(withText("Irma")));
+    }
+
+    @Test
     public void ensureItemIsAdded() {
         onView(withId(R.id.whatEditText)).perform(typeText("Milk"), closeSoftKeyboard());
         onView(withId(R.id.whereEditText)).perform(click());
@@ -76,12 +91,12 @@ public class EspressoTestUIFragment {
     }
 
     @Test
-    public void ensureShopPickerOpens() {
+    public void ensureShopPickerCancels() {
         onView(withId(R.id.whereEditText)).perform(click());
-        onView(withText("Irma")).perform(click());
-        onView(withText("Ok")).perform(click());
+        onView(withText("Netto")).perform(click());
+        onView(withText("Cancel")).perform(click());
 
-        onView(withId(R.id.whereEditText)).check(matches(withText("Irma")));
+        onView(withId(R.id.whereEditText)).check(matches(withText("")));
     }
 
     @Test
@@ -101,6 +116,12 @@ public class EspressoTestUIFragment {
 
         onView(withId(R.id.whereEditText)).perform(click());
         onView(withText("Lidl")).check(matches(isDisplayed()));
+    }
+
+    @Test
+    public void ensureItemsAreListed() {
+        onView(withId(R.id.listItemsBtn)).perform(click());
+        onView(withId(R.id.list_recycler_view)).check(matches(isDisplayed()));
     }
 
 }
