@@ -65,6 +65,17 @@ public class ShopsDB {
         return shopList;
     }
 
+    //set up for espresso tests
+    public void deleteAllShops() {
+        mDatabase.delete(ShopTable.NAME, null, null);
+    }
+
+    //set up for espresso tests
+    public int getShopCount() {
+        ShoppingCursorWrapper cursor = queryShops(null, null);
+        return cursor.getCount();
+    }
+
     private static ContentValues getContentValues(Shop shop) {
         ContentValues values = new ContentValues();
         values.put(ShopTable.Cols.TITLE, shop.getName());
