@@ -16,6 +16,7 @@ import androidx.test.internal.runner.junit4.AndroidJUnit4ClassRunner;
 import androidx.test.rule.ActivityTestRule;
 
 import org.junit.AfterClass;
+import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Rule;
 import org.junit.Test;
@@ -45,6 +46,11 @@ public class EspressoTestListFragment {
     public ActivityTestRule<ShoppingActivity> mShoppingActivityTestRule =
             new ActivityTestRule<>(ShoppingActivity.class);
 
+    @Before
+    public void cleanup() {
+        itemsDB.deleteAllItems();
+    }
+
     @BeforeClass
     @AfterClass
     public static void setUp() {
@@ -57,7 +63,7 @@ public class EspressoTestListFragment {
     //Checks that the delete buttons on the row elements in the recycler view work correctly.
     @Test
     public void shouldDeleteAnItemFromTheRecyclerView() {
-        itemsDB.deleteAllItems();
+        //itemsDB.deleteAllItems();
         onView(withId(R.id.whatEditText)).perform(typeText("Banana"),closeSoftKeyboard());
         onView(withId(R.id.whereEditText)).perform(click());
         onView(withText("Netto")).perform(click());
@@ -76,7 +82,7 @@ public class EspressoTestListFragment {
     //Check that the item count is working properly.
     @Test
     public void ensureTextViewItemCountDisplaysCorrectly() {
-        itemsDB.deleteAllItems();
+        //itemsDB.deleteAllItems();
         onView(withId(R.id.listItemsBtn)).perform(click());
         openActionBarOverflowOrOptionsMenu(getInstrumentation().getTargetContext());
         onView(withText("DEV: Add Items")).perform(click());
@@ -86,7 +92,7 @@ public class EspressoTestListFragment {
     //Check that the batch add works correctly.
     @Test
     public void ensureBatchAddItemsAddsItemsCorrectly() {
-        itemsDB.deleteAllItems();
+        //itemsDB.deleteAllItems();
         onView(withId(R.id.listItemsBtn)).perform(click());
         openActionBarOverflowOrOptionsMenu(getInstrumentation().getTargetContext());
         onView(withText("DEV: Add Items")).perform(click());
@@ -96,7 +102,7 @@ public class EspressoTestListFragment {
     //Check if the database is empty once the delete button is pressed.
     @Test
     public void ensureDeleteItemsDeletesAllItems() {
-        itemsDB.deleteAllItems();
+        //itemsDB.deleteAllItems();
         onView(withId(R.id.listItemsBtn)).perform(click());
         openActionBarOverflowOrOptionsMenu(getInstrumentation().getTargetContext());
         onView(withText("DEV: Add Items")).perform(click());
@@ -107,7 +113,7 @@ public class EspressoTestListFragment {
     //Checks if the toolbar back button works correctly.
     @Test
     public void ensureBackButtonWorksProperly() {
-        itemsDB.deleteAllItems();
+        //itemsDB.deleteAllItems();
         onView(withId(R.id.listItemsBtn)).perform(click());
         onView(withContentDescription("Navigate up")).perform(click());
         onView(withText("List All Items")).check(matches(isDisplayed()));
