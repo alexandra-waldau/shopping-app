@@ -222,7 +222,8 @@ public class ListFragment extends Fragment implements Observer {
         @Override
         public void onClick(View v) {
             String deleteItem = mWhatTextView.getText().toString().trim();
-            itemsDB.deleteItem(deleteItem);
+            String deletePlace = mWhereTextView.getText().toString().trim();
+            itemsDB.deleteItem(deleteItem, deletePlace);
         }
 
     }

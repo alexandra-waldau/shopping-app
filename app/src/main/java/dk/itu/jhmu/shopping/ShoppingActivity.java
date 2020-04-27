@@ -28,7 +28,6 @@ public class ShoppingActivity extends AppCompatActivity {
         Fragment fragment = fm.findFragmentById(R.id.fragment_container);
         Fragment fragmentList = fm.findFragmentById(R.id.list_container);
 
-        //Saw a nice way of ordering this if/else from Rasmus Hervig!
         //First checks for landscape orientation and loads two fragments if so, if not only loads
         //one fragment.
         if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {

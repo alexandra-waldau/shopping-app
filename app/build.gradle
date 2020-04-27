@@ -4,7 +4,7 @@ android {
     compileSdkVersion 28
     buildToolsVersion "29.0.2"
     defaultConfig {
-        applicationId "dk.itu.jhmu.ultimateshopping"
+        applicationId "dk.itu.jhmu.shopping"
         minSdkVersion 21
         targetSdkVersion 28
         versionCode 1
@@ -32,7 +32,6 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.0'
     androidTestImplementation 'androidx.test:rules:1.1.1'
 
-    //This imports our recycler view, although Android Studio complains about the version...
     implementation 'androidx.recyclerview:recyclerview:1.1.0'
 
     //This imports constraint layouts for future exercises, should I want to use them.
