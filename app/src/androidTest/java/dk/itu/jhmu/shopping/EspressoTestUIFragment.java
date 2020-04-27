@@ -32,14 +32,18 @@ import static org.junit.Assert.*;
 @RunWith(AndroidJUnit4ClassRunner.class)
 @LargeTest
 
+//TEST CLASS//-------------------------------------------------------------------------------------
 public class EspressoTestUIFragment {
+    //FIELDS//-------------------------------------------------------------------------------------
     private static ItemsDB itemsDB;
     private static ShopsDB shopsDB;
 
+    //RULES AND SETUP//----------------------------------------------------------------------------
     @Rule
     public ActivityTestRule<ShoppingActivity> mShoppingActivityTestRule =
             new ActivityTestRule<>(ShoppingActivity.class);
 
+    //TESTS//--------------------------------------------------------------------------------------
     //set up an empty database before running test suite
     //clear the database after running test suite
     @BeforeClass
@@ -123,5 +127,5 @@ public class EspressoTestUIFragment {
         onView(withId(R.id.listItemsBtn)).perform(click());
         onView(withId(R.id.list_recycler_view)).check(matches(isDisplayed()));
     }
-
 }
+//END OF LINE//------------------------------------------------------------------------------------

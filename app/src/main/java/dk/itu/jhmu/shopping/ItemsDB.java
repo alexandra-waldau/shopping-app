@@ -12,8 +12,8 @@ import android.database.sqlite.SQLiteDatabase;
 import java.util.ArrayList;
 import java.util.Observable;
 
-//VERSION 8.5//------------------------------------------------------------------------------------
-/* VERSION NOTES: TextView item counter added!
+//VERSION 9.0//------------------------------------------------------------------------------------
+/* VERSION NOTES: Tests and all the features!
  * @author John Henrik Muller
  * @author Alexandra Waldau
  */

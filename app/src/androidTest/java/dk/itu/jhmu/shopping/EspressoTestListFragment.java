@@ -40,8 +40,6 @@ public class EspressoTestListFragment {
     private static ItemsDB itemsDB;
 
     //RULES AND SETUP//----------------------------------------------------------------------------
-
-    //Need Alex to explain this one to me.
     @Rule
     public ActivityTestRule<ShoppingActivity> mShoppingActivityTestRule =
             new ActivityTestRule<>(ShoppingActivity.class);
