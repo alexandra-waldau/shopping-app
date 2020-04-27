@@ -4,18 +4,23 @@ import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
-//UNIT TEST//-------------------------------------------------------------------------------------
+//TEST CLASS//-------------------------------------------------------------------------------------
 public class ItemUnitTest {
-    //Variable to hold our DB for testing.
+
+    //FIELDS//-------------------------------------------------------------------------------------
     Item item;
 
+    //SETUP//--------------------------------------------------------------------------------------
     //Performs this step before each test.
     @Before
     public void setup () {
         item = new Item("Milk","Netto");
     }
 
-    //I know testing getters and setters is not really worth doing in unit testing. It's just for practice here. :)
+    //TESTS//--------------------------------------------------------------------------------------
+
+    //I know testing getters and setters is not really worth doing in unit testing.
+    //It's just for practice here. :)
     @Test
     public void ShouldReturnTheName() {
         assertEquals("Milk",item.getWhat());
