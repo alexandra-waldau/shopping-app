@@ -4,8 +4,6 @@ import android.content.Context;
 
 import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.action.ViewActions.click;
-import static androidx.test.espresso.action.ViewActions.closeSoftKeyboard;
-import static androidx.test.espresso.action.ViewActions.typeText;
 import static androidx.test.espresso.assertion.ViewAssertions.matches;
 import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
@@ -39,6 +37,8 @@ public class EspressoTestListFragment {
     private static ItemsDB itemsDB;
 
     //RULES AND SETUP//----------------------------------------------------------------------------
+
+    //Need Alex to explain this one to me.
     @Rule
     public ActivityTestRule<ShoppingActivity> mShoppingActivityTestRule =
             new ActivityTestRule<>(ShoppingActivity.class);
@@ -74,18 +74,9 @@ public class EspressoTestListFragment {
         onView(withId(R.id.itemCount_TextView)).check(matches(withText("5 items")));
     }
 
-    //I'd like to test the toolbar item count as well but after a lot of stackoverflow and trial and error
-    //I don't really have a solution yet...
-    /*
-    public void ensureToolbarItemCountDisplaysCorrectly() {
-        onView(withId(R.id.show_subtitle)).perform(click());
-        onView(withId(R.id.itemCount_TextView)).check(matches(withText("5 items")));
-    }
-    */
-
     //Check that the batch add works correctly.
     @Test
-    public void ensureBatchAddItemsAddsFiveItems() {
+    public void ensureBatchAddItemsAddsItemsCorrectly() {
         onView(withId(R.id.add_items)).perform(click());
         onView(withId(R.id.add_items)).perform(click());
         onView(withId(R.id.add_items)).perform(click());
@@ -99,13 +90,7 @@ public class EspressoTestListFragment {
         assertEquals(0, itemsDB.getItemCount());
     }
 
-    //Need to run this to see if it actually works as intended or if it ends up pressing all the
-    //deleteItemImgButtons...
-    public void ensureDeleteOneItemButtonDeletesSingleItem() {
-        onView(withId(R.id.add_items)).perform(click());
-        onView(withId(R.id.deleteItemImgBtn)).perform(click());
-        assertEquals(4, itemsDB.getItemCount());
-    }
+
 
     //Not entirely sure how to test for the context sharing coming up...
     //Just looking for a string in the shared window atm.
@@ -114,6 +99,34 @@ public class EspressoTestListFragment {
         onView(withId(R.id.share_list).perform(click()));
         onView(withText("Send list via")).check(matches(isDisplayed()));
     }
+
+
+    /*
+    //I'd like to test the toolbar item count as well but after a lot of stack overflow and trial
+    //and error I don't really have a solution yet...
+    public void ensureToolbarItemCountDisplaysCorrectly() {
+        onView(withId(R.id.show_subtitle)).perform(click());
+        onView(withId(R.id.itemCount_TextView)).check(matches(withText("5 items")));
+    }
+
+    //I can't check ID's that are not unique, need another way to look at each row in the recycler view.
+    @Test
+    public void ensureOneRowItemDisplaysCorrectly() {
+        onView(withId(R.id.add_items)).perform(click());
+        //onView(withId(R.id.item_title)).check(matches(withText("5 items")));
+        onView(withId(R.id.item_no)).check(matches(withText("1")));
+        onView(withId(R.id.item_what)).check(matches(withText("Bananas")));
+        onView(withId(R.id.item_where)).check(matches(withText("Irma")));
+    }
+
+    //Same problem here. Without unique ID's it's hard to test the rows in the RecyclerView.
+    @Test
+    public void ensureDeleteOneItemButtonDeletesSingleItem() {
+        onView(withId(R.id.add_items)).perform(click());
+        onView(withId(R.id.deleteItemImgBtn)).perform(click());
+        assertEquals(4, itemsDB.getItemCount());
+    }
+    */
 
 }
 //END OF LINE//------------------------------------------------------------------------------------
