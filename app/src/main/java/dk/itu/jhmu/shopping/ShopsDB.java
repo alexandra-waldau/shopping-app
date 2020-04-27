@@ -13,6 +13,13 @@ import dk.itu.jhmu.shopping.database.ShoppingCursorWrapper;
 import dk.itu.jhmu.shopping.database.ShoppingDbSchema;
 import dk.itu.jhmu.shopping.database.ShoppingDbSchema.ShopTable;
 
+//VERSION 9.0//------------------------------------------------------------------------------------
+/* VERSION NOTES: Tests and all the features!
+ * @author John Henrik Muller
+ * @author Alexandra Waldau
+ */
+//-------------------------------------------------------------------------------------------------
+
 //CLASS HEADER//-----------------------------------------------------------------------------------
 public class ShopsDB {
     //FIELDS//-------------------------------------------------------------------------------------

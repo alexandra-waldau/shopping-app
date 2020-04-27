@@ -11,6 +11,13 @@ import androidx.fragment.app.DialogFragment;
 
 import java.util.List;
 
+//VERSION 9.0//------------------------------------------------------------------------------------
+/* VERSION NOTES: Tests and all the features!
+ * @author John Henrik Muller
+ * @author Alexandra Waldau
+ */
+//-------------------------------------------------------------------------------------------------
+
 //CLASS HEADER//-----------------------------------------------------------------------------------
 public class ShopPickerFragment extends DialogFragment {
     //FIELDS//-------------------------------------------------------------------------------------

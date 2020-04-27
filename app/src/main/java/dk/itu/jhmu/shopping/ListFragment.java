@@ -78,7 +78,7 @@ public class ListFragment extends Fragment implements Observer {
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
-        inflater.inflate(R.menu.fragment_toolbar_menu, menu);
+        inflater.inflate(R.menu.menu_fragment_list, menu);
 
         //This manages our show item count action.
         MenuItem subtitleItem = menu.findItem(R.id.show_subtitle);
