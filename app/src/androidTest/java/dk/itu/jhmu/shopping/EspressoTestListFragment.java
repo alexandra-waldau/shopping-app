@@ -1,11 +1,8 @@
 package dk.itu.jhmu.shopping;
 
-import android.content.Context;
-
 import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.Espresso.openActionBarOverflowOrOptionsMenu;
 import static androidx.test.espresso.action.ViewActions.closeSoftKeyboard;
-import static androidx.test.espresso.action.ViewActions.pressBack;
 import static androidx.test.espresso.action.ViewActions.click;
 import static androidx.test.espresso.action.ViewActions.typeText;
 import static androidx.test.espresso.assertion.ViewAssertions.matches;
@@ -16,11 +13,9 @@ import static androidx.test.espresso.matcher.ViewMatchers.withText;
 
 import androidx.test.filters.LargeTest;
 import androidx.test.internal.runner.junit4.AndroidJUnit4ClassRunner;
-import androidx.test.platform.app.InstrumentationRegistry;
 import androidx.test.rule.ActivityTestRule;
 
 import org.junit.AfterClass;
-import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Rule;
 import org.junit.Test;
@@ -59,9 +54,9 @@ public class EspressoTestListFragment {
 
     //TESTS//--------------------------------------------------------------------------------------
 
-    //RecyclerView test... What a test! A glorious test!
+    //Checks that the delete buttons on the row elements in the recycler view work correctly.
     @Test
-    public void shouldDeleteAnItemFromTheRecyclerView() { //WORKS!
+    public void shouldDeleteAnItemFromTheRecyclerView() {
         itemsDB.deleteAllItems();
         onView(withId(R.id.whatEditText)).perform(typeText("Banana"),closeSoftKeyboard());
         onView(withId(R.id.whereEditText)).perform(click());
@@ -78,9 +73,9 @@ public class EspressoTestListFragment {
         assertEquals(0, itemsDB.getItemCount());
     }
 
-    //Check that the item count TextView is working properly.
+    //Check that the item count is working properly.
     @Test
-    public void ensureTextViewItemCountDisplaysCorrectly() { //WORKS
+    public void ensureTextViewItemCountDisplaysCorrectly() {
         itemsDB.deleteAllItems();
         onView(withId(R.id.listItemsBtn)).perform(click());
         openActionBarOverflowOrOptionsMenu(getInstrumentation().getTargetContext());
@@ -90,7 +85,7 @@ public class EspressoTestListFragment {
 
     //Check that the batch add works correctly.
     @Test
-    public void ensureBatchAddItemsAddsItemsCorrectly() { //WORKS
+    public void ensureBatchAddItemsAddsItemsCorrectly() {
         itemsDB.deleteAllItems();
         onView(withId(R.id.listItemsBtn)).perform(click());
         openActionBarOverflowOrOptionsMenu(getInstrumentation().getTargetContext());
@@ -100,7 +95,7 @@ public class EspressoTestListFragment {
 
     //Check if the database is empty once the delete button is pressed.
     @Test
-    public void ensureDeleteItemsDeletesAllItems() { //WORKS
+    public void ensureDeleteItemsDeletesAllItems() {
         itemsDB.deleteAllItems();
         onView(withId(R.id.listItemsBtn)).perform(click());
         openActionBarOverflowOrOptionsMenu(getInstrumentation().getTargetContext());
@@ -109,22 +104,9 @@ public class EspressoTestListFragment {
         assertEquals(0, itemsDB.getItemCount());
     }
 
-    /*
-    //Not entirely sure how to test for the context sharing coming up...
-    //Just looking for a string in the shared window atm.
+    //Checks if the toolbar back button works correctly.
     @Test
-    public void ensureShareItemsSharesItems() { //DOESNT WORK
-        onView(withId(R.id.listItemsBtn)).perform(click());
-        onView(withId(R.id.share_list)).perform(click());
-        onView(withText("Send list via")).check(matches(isDisplayed()));
-        onView(withText("Send list via")).perform(pressBack());
-    }
-
-     */
-
-    //This should look for our back button and press it.
-    @Test
-    public void ensureBackButtonWorksProperly() { //WORKS
+    public void ensureBackButtonWorksProperly() {
         itemsDB.deleteAllItems();
         onView(withId(R.id.listItemsBtn)).perform(click());
         onView(withContentDescription("Navigate up")).perform(click());
