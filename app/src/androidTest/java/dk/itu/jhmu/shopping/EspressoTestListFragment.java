@@ -3,9 +3,14 @@ package dk.itu.jhmu.shopping;
 import android.content.Context;
 
 import static androidx.test.espresso.Espresso.onView;
+import static androidx.test.espresso.Espresso.openActionBarOverflowOrOptionsMenu;
+import static androidx.test.espresso.action.ViewActions.closeSoftKeyboard;
+import static androidx.test.espresso.action.ViewActions.pressBack;
 import static androidx.test.espresso.action.ViewActions.click;
+import static androidx.test.espresso.action.ViewActions.typeText;
 import static androidx.test.espresso.assertion.ViewAssertions.matches;
 import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
+import static androidx.test.espresso.matcher.ViewMatchers.withContentDescription;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static androidx.test.espresso.matcher.ViewMatchers.withText;
 
@@ -15,11 +20,13 @@ import androidx.test.platform.app.InstrumentationRegistry;
 import androidx.test.rule.ActivityTestRule;
 
 import org.junit.AfterClass;
+import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
+import static androidx.test.platform.app.InstrumentationRegistry.getInstrumentation;
 import static org.junit.Assert.*;
 
 /**
@@ -46,88 +53,83 @@ public class EspressoTestListFragment {
     @BeforeClass
     @AfterClass
     public static void setUp() {
-        itemsDB = ItemsDB.get(InstrumentationRegistry.getInstrumentation().getTargetContext());
+        itemsDB = ItemsDB.get(getInstrumentation().getTargetContext());
         itemsDB.deleteAllItems();
     }
 
     //TESTS//--------------------------------------------------------------------------------------
 
-    //Not 100% sure what this test does except check we're using the right package? :P
+    //RecyclerView test... What a test! A glorious test!
     @Test
-    public void useAppContext() {
-        // Context of the app under test.
-        Context appContext = InstrumentationRegistry.getInstrumentation().getTargetContext();
-        assertEquals("dk.itu.jhmu.shopping", appContext.getPackageName());
-    }
+    public void shouldDeleteAnItemFromTheRecyclerView() { //WORKS!
+        itemsDB.deleteAllItems();
+        onView(withId(R.id.whatEditText)).perform(typeText("Banana"),closeSoftKeyboard());
+        onView(withId(R.id.whereEditText)).perform(click());
+        onView(withText("Netto")).perform(click());
+        onView(withText("Ok")).perform(click());
 
-    //Check that opening the recycler view works properly.
-    @Test
-    public void ensureRecyclerViewOpens() {
+        onView(withId(R.id.addItemBtn)).perform(click());
         onView(withId(R.id.listItemsBtn)).perform(click());
-        onView(withId(R.id.list_recycler_view)).check(matches(isDisplayed()));
+
+        onView(withId(R.id.item_what)).check(matches(withText("Banana")));
+        onView(withId(R.id.item_where)).check(matches(withText("Netto")));
+
+        onView(withId(R.id.deleteItemImgBtn)).perform(click());
+        assertEquals(0, itemsDB.getItemCount());
     }
 
     //Check that the item count TextView is working properly.
     @Test
-    public void ensureTextViewItemCountDisplaysCorrectly() {
-        onView(withId(R.id.add_items)).perform(click());
+    public void ensureTextViewItemCountDisplaysCorrectly() { //WORKS
+        itemsDB.deleteAllItems();
+        onView(withId(R.id.listItemsBtn)).perform(click());
+        openActionBarOverflowOrOptionsMenu(getInstrumentation().getTargetContext());
+        onView(withText("DEV: Add Items")).perform(click());
         onView(withId(R.id.itemCount_TextView)).check(matches(withText("5 items")));
     }
 
     //Check that the batch add works correctly.
     @Test
-    public void ensureBatchAddItemsAddsItemsCorrectly() {
-        onView(withId(R.id.add_items)).perform(click());
-        onView(withId(R.id.add_items)).perform(click());
-        onView(withId(R.id.add_items)).perform(click());
-        assertEquals(15, itemsDB.getItemCount());;
+    public void ensureBatchAddItemsAddsItemsCorrectly() { //WORKS
+        itemsDB.deleteAllItems();
+        onView(withId(R.id.listItemsBtn)).perform(click());
+        openActionBarOverflowOrOptionsMenu(getInstrumentation().getTargetContext());
+        onView(withText("DEV: Add Items")).perform(click());
+        assertEquals(5, itemsDB.getItemCount());
     }
 
     //Check if the database is empty once the delete button is pressed.
     @Test
-    public void ensureDeleteItemsDeletesAllItems() {
+    public void ensureDeleteItemsDeletesAllItems() { //WORKS
+        itemsDB.deleteAllItems();
+        onView(withId(R.id.listItemsBtn)).perform(click());
+        openActionBarOverflowOrOptionsMenu(getInstrumentation().getTargetContext());
+        onView(withText("DEV: Add Items")).perform(click());
         onView(withId(R.id.delete_all)).perform(click());
         assertEquals(0, itemsDB.getItemCount());
     }
 
-
-
+    /*
     //Not entirely sure how to test for the context sharing coming up...
     //Just looking for a string in the shared window atm.
     @Test
-    public void ensureShareItemsSharesItems() {
-        onView(withId(R.id.share_list).perform(click()));
+    public void ensureShareItemsSharesItems() { //DOESNT WORK
+        onView(withId(R.id.listItemsBtn)).perform(click());
+        onView(withId(R.id.share_list)).perform(click());
         onView(withText("Send list via")).check(matches(isDisplayed()));
+        onView(withText("Send list via")).perform(pressBack());
     }
 
+     */
 
-    /*
-    //I'd like to test the toolbar item count as well but after a lot of stack overflow and trial
-    //and error I don't really have a solution yet...
-    public void ensureToolbarItemCountDisplaysCorrectly() {
-        onView(withId(R.id.show_subtitle)).perform(click());
-        onView(withId(R.id.itemCount_TextView)).check(matches(withText("5 items")));
-    }
-
-    //I can't check ID's that are not unique, need another way to look at each row in the recycler view.
+    //This should look for our back button and press it.
     @Test
-    public void ensureOneRowItemDisplaysCorrectly() {
-        onView(withId(R.id.add_items)).perform(click());
-        //onView(withId(R.id.item_title)).check(matches(withText("5 items")));
-        onView(withId(R.id.item_no)).check(matches(withText("1")));
-        onView(withId(R.id.item_what)).check(matches(withText("Bananas")));
-        onView(withId(R.id.item_where)).check(matches(withText("Irma")));
+    public void ensureBackButtonWorksProperly() { //WORKS
+        itemsDB.deleteAllItems();
+        onView(withId(R.id.listItemsBtn)).perform(click());
+        onView(withContentDescription("Navigate up")).perform(click());
+        onView(withText("List All Items")).check(matches(isDisplayed()));
     }
-
-    //Same problem here. Without unique ID's it's hard to test the rows in the RecyclerView.
-    @Test
-    public void ensureDeleteOneItemButtonDeletesSingleItem() {
-        onView(withId(R.id.add_items)).perform(click());
-        onView(withId(R.id.deleteItemImgBtn)).perform(click());
-        assertEquals(4, itemsDB.getItemCount());
-    }
-    */
-
 }
 //END OF LINE//------------------------------------------------------------------------------------
 
