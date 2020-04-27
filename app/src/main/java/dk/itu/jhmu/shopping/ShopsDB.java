@@ -13,10 +13,13 @@ import dk.itu.jhmu.shopping.database.ShoppingCursorWrapper;
 import dk.itu.jhmu.shopping.database.ShoppingDbSchema;
 import dk.itu.jhmu.shopping.database.ShoppingDbSchema.ShopTable;
 
+//CLASS HEADER//-----------------------------------------------------------------------------------
 public class ShopsDB {
+    //FIELDS//-------------------------------------------------------------------------------------
     private static ShopsDB sShopDB;
     private SQLiteDatabase mDatabase;
 
+    //CONSTRUCTOR//--------------------------------------------------------------------------------
     private ShopsDB(Context context) {
         mDatabase = ShoppingBaseHelper.getHelper(context.getApplicationContext())
                 .getWritableDatabase();
@@ -28,6 +31,7 @@ public class ShopsDB {
         }
     }
 
+    //METHODS//------------------------------------------------------------------------------------
     public static ShopsDB get(Context context) {
         if (sShopDB == null) {
             sShopDB = new ShopsDB(context);
@@ -97,3 +101,4 @@ public class ShopsDB {
         return new ShoppingCursorWrapper(cursor);
     }
 }
+//END OF LINE//------------------------------------------------------------------------------------

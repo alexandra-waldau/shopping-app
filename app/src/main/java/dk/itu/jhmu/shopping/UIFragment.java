@@ -15,7 +15,7 @@ import android.widget.Toast;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
-//VERSION 9//--------------------------------------------------------------------------------------
+//VERSION 9.0//------------------------------------------------------------------------------------
 /* VERSION NOTES: Tests and all the features!
  * @author John Henrik Muller
  * @author Alexandra Waldau
@@ -52,9 +52,6 @@ public class UIFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_ui, container, false);
-
-        //Hide keyboard...sometimes. :P
-        getActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
 
         //Attaching a bunch of variables to elements in our XML.
         whereEditText = (EditText) v.findViewById(R.id.whereEditText);

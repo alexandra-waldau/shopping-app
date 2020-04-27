@@ -11,13 +11,16 @@ import androidx.fragment.app.DialogFragment;
 
 import java.util.List;
 
+//CLASS HEADER//-----------------------------------------------------------------------------------
 public class ShopPickerFragment extends DialogFragment {
+    //FIELDS//-------------------------------------------------------------------------------------
     private ShopsDB shopDB;
     private String selectedItem;
     private String[] shopList;
 
     public static final String EXTRA_NAME = "shopping.shop.name";
 
+    //METHODS//------------------------------------------------------------------------------------
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -59,3 +62,4 @@ public class ShopPickerFragment extends DialogFragment {
         getTargetFragment().onActivityResult(getTargetRequestCode(), resultCode, intent);
     }
 }
+//END OF LINE//------------------------------------------------------------------------------------

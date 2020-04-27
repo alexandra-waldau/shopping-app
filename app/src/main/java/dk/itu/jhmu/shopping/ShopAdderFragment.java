@@ -12,11 +12,13 @@ import android.widget.EditText;
 
 import androidx.fragment.app.DialogFragment;
 
+//CLASS HEADER//-----------------------------------------------------------------------------------
 public class ShopAdderFragment extends DialogFragment {
+    //FIELDS//-------------------------------------------------------------------------------------
     private EditText textBox;
-
     public static final String EXTRA_SHOP = "shopping.shop.new_shop";
 
+    //METHODS//------------------------------------------------------------------------------------
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
 
@@ -46,3 +48,4 @@ public class ShopAdderFragment extends DialogFragment {
         getTargetFragment().onActivityResult(getTargetRequestCode(),resultCode,intent);
     }
 }
+//END OF LINE//------------------------------------------------------------------------------------
